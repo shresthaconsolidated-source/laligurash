@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, Heart, Globe, ChevronRight } from 'lucide-react';
+import { ArrowRight, Sparkles, Leaf, HeartHandshake, Globe, Heart, ChevronRight } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
+  const [state, handleSubmit] = useForm("mreyzkkk");
+
   return (
     <div className="overflow-hidden bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
       {/* Hero Section */}
@@ -181,27 +184,38 @@ export default function Home() {
           <p className="text-white/50 text-lg mb-14 font-light max-w-xl mx-auto leading-relaxed">
             Join our inner circle for exclusive access to seasonal collections, artisan stories, and festive gifting inspiration.
           </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
-              window.location.href = `mailto:shresthaconsolidated@gmail.com?subject=Newsletter Subscription&body=Please add ${email} to your mailing list.`;
-            }}
-            className="flex flex-col sm:flex-row gap-0 sm:gap-4 max-w-md mx-auto items-end"
-          >
-            <div className="flex-1 w-full border-b border-white/20 pb-2 transition-all duration-300 focus-within:border-brand-gold relative group">
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your email"
-                className="w-full bg-transparent text-white px-2 py-3 focus:outline-none placeholder-white/30 text-center sm:text-left font-light tracking-wide text-sm"
-              />
-            </div>
-            <button type="submit" className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-gold hover:text-white transition-colors duration-300 mt-6 sm:mt-0 py-3 px-4 flex-shrink-0">
-              Subscribe
-            </button>
-          </form>
+          {state.succeeded ? (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-8 p-6 glass-panel border-brand-gold/30 flex items-center justify-center max-w-md mx-auto"
+            >
+              <p className="text-brand-gold text-lg font-serif">Thank you for subscribing to our story.</p>
+            </motion.div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-0 sm:gap-4 max-w-md mx-auto items-end"
+            >
+              <div className="flex-1 w-full border-b border-white/20 pb-2 transition-all duration-300 focus-within:border-brand-gold relative group">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email"
+                  className="w-full bg-transparent text-white px-2 py-3 focus:outline-none placeholder-white/30 text-center sm:text-left font-light tracking-wide text-sm"
+                />
+                <ValidationError prefix="Email" field="email" errors={state.errors} />
+              </div>
+              <button
+                type="submit"
+                disabled={state.submitting}
+                className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-gold hover:text-white transition-colors duration-300 mt-6 sm:mt-0 py-3 px-4 flex-shrink-0 disabled:opacity-50"
+              >
+                {state.submitting ? 'Sending...' : 'Subscribe'}
+              </button>
+            </form>
+          )}
         </div>
       </section>
 

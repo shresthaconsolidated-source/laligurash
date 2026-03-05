@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Briefcase, Gift, Calendar, CheckCircle2 } from 'lucide-react';
+import { Gift, Calendar, Briefcase, CheckCircle2 } from 'lucide-react'; // Retained Briefcase as it's used, and CheckCircle2. No explicit instruction to remove them or add Building2/Users.
+import { useForm, ValidationError } from '@formspree/react';
 
 export default function Corporate() {
+  const [state, handleSubmit] = useForm("mreyzkkk");
+
   return (
     <div className="pt-24 bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
       {/* B2B Hero */}
@@ -121,38 +124,46 @@ export default function Corporate() {
             <p className="text-white/50 mb-12 text-lg font-light max-w-lg">
               Tell us about your event or gifting needs, and our team will get back to you with a tailored proposal within 24 hours.
             </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const name = (form.elements.namedItem('name') as HTMLInputElement).value;
-                const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-                const company = (form.elements.namedItem('company') as HTMLInputElement).value;
-                const details = (form.elements.namedItem('details') as HTMLTextAreaElement).value;
-
-                const subject = encodeURIComponent(`B2B Inquiry from ${name} at ${company || 'Independent Contact'}`);
-                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany/Event: ${company}\n\nRequirements:\n${details}`);
-
-                window.location.href = `mailto:shresthaconsolidated@gmail.com?subject=${subject}&body=${body}`;
-              }}
-              className="space-y-8"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                  <input type="text" name="name" required placeholder="Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
+            {state.succeeded ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass-panel p-10 text-center border-brand-gold/30"
+              >
+                <h3 className="text-3xl font-serif text-brand-gold mb-4">Inquiry Sent</h3>
+                <p className="text-white/70 font-light">Thank you for reaching out. Our events team will review your requirements and contact you within 24 hours.</p>
+              </motion.div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-8"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                    <input type="text" name="name" required placeholder="Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} />
+                  </div>
+                  <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                    <input type="email" name="email" required placeholder="Email" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} />
+                  </div>
                 </div>
                 <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                  <input type="email" name="email" required placeholder="Email" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
+                  <input type="text" name="company" placeholder="Company / Event Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
                 </div>
-              </div>
-              <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                <input type="text" name="company" placeholder="Company / Event Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
-              </div>
-              <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                <textarea name="details" required placeholder="Tell us about your requirements" rows={3} className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light resize-none"></textarea>
-              </div>
-              <button type="submit" className="btn-primary w-full py-5 text-sm uppercase tracking-widest mt-4">Send Inquiry</button>
-            </form>
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <textarea name="details" required placeholder="Tell us about your requirements" rows={3} className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light resize-none"></textarea>
+                  <ValidationError prefix="Details" field="details" errors={state.errors} />
+                </div>
+                <button
+                  type="submit"
+                  disabled={state.submitting}
+                  className="btn-primary w-full py-5 text-sm uppercase tracking-widest mt-4 disabled:opacity-50"
+                >
+                  {state.submitting ? 'Sending...' : 'Send Inquiry'}
+                </button>
+              </form>
+            )}
           </div>
           <div className="hidden md:block w-[40%] bg-brand-surface relative border-l border-white/5">
             <img
