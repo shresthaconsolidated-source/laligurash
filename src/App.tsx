@@ -1,50 +1,140 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle, X } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
 
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
 import Corporate from './pages/Corporate';
 
-function Navbar() {
-  const location = useLocation();
+function ShopNowModal({ onClose }: { onClose: () => void }) {
+  const [state, handleSubmit] = useForm("mreyzkkk");
 
   return (
-    <nav className="glass-nav">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity duration-300">
-          <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
-          <span className="text-3xl font-serif tracking-widest text-brand-gold hidden sm:block pt-1">LALIGURAS</span>
-        </Link>
-
-        <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
-          <Link to="/" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-            <span className="relative z-10">Home</span>
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-          </Link>
-          <Link to="/about" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/about' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-            <span className="relative z-10">Our Story</span>
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-          </Link>
-          <Link to="/corporate" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/corporate' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-            <span className="relative z-10">Corporate</span>
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/corporate' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Link to="/collections" className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 border border-brand-gold/30 text-brand-gold rounded-full font-medium transition-all duration-300 hover:bg-brand-gold hover:text-brand-ink active:scale-95 text-xs uppercase tracking-[0.1em]">
-            Shop Now
-          </Link>
-          <button className="md:hidden group">
-            <div className="w-6 h-[1px] bg-white mb-2 transition-all group-hover:bg-brand-gold"></div>
-            <div className="w-6 h-[1px] bg-white transition-all group-hover:bg-brand-gold w-4 ml-auto"></div>
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <div className="absolute inset-0 bg-brand-ink/80 backdrop-blur-xl" />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="relative w-full max-w-lg glass-panel p-10 md:p-12 z-10"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute top-6 right-6 text-white/30 hover:text-brand-gold transition-colors duration-300"
+          >
+            <X size={20} />
           </button>
+
+          {state.succeeded ? (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-8"
+            >
+              <p className="text-4xl mb-4">🕯️</p>
+              <h3 className="text-3xl font-serif text-brand-gold mb-4">Inquiry Sent</h3>
+              <p className="text-white/60 font-light">Thank you for your interest. We will get back to you within 24 hours with our available collections.</p>
+            </motion.div>
+          ) : (
+            <>
+              <span className="text-xs uppercase tracking-[0.4em] text-brand-gold font-medium mb-4 block">Shop Inquiry</span>
+              <h2 className="text-3xl font-serif text-white mb-2">Request a Collection</h2>
+              <p className="text-white/40 text-sm font-light mb-10">Tell us what you're looking for and we'll curate the perfect selection for you.</p>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <input type="text" name="name" required placeholder="Your Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light text-sm" />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                </div>
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <input type="email" name="email" required placeholder="Your Email" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light text-sm" />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                </div>
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <select name="interest" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white/60 font-light text-sm appearance-none cursor-pointer">
+                    <option value="" className="bg-brand-ink">What are you looking for?</option>
+                    <option value="Floating Flora" className="bg-brand-ink">Floating Flora</option>
+                    <option value="Signature Petal Diyos" className="bg-brand-ink">Signature Petal Diyos</option>
+                    <option value="Corporate Gifting" className="bg-brand-ink">Corporate Gifting</option>
+                    <option value="Festive Bundles" className="bg-brand-ink">Festive Bundles</option>
+                    <option value="Custom Order" className="bg-brand-ink">Custom Order</option>
+                  </select>
+                </div>
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <textarea name="message" placeholder="Any additional details (quantity, occasion, etc.)" rows={2} className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light text-sm resize-none" />
+                </div>
+                <button
+                  type="submit"
+                  disabled={state.submitting}
+                  className="btn-primary w-full py-4 text-xs uppercase tracking-widest mt-2 disabled:opacity-50"
+                >
+                  {state.submitting ? 'Sending...' : 'Send Inquiry'}
+                </button>
+              </form>
+            </>
+          )}
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function Navbar() {
+  const location = useLocation();
+  const [shopOpen, setShopOpen] = React.useState(false);
+
+  return (
+    <>
+      {shopOpen && <ShopNowModal onClose={() => setShopOpen(false)} />}
+      <nav className="glass-nav">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex justify-between items-center">
+          <Link to="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity duration-300">
+            <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
+            <span className="text-3xl font-serif tracking-widest text-brand-gold hidden sm:block pt-1">LALIGURAS</span>
+          </Link>
+
+          <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
+            <Link to="/" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+              <span className="relative z-10">Home</span>
+              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+            </Link>
+            <Link to="/about" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/about' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+              <span className="relative z-10">Our Story</span>
+              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+            </Link>
+            <Link to="/corporate" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/corporate' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+              <span className="relative z-10">Corporate</span>
+              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/corporate' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => setShopOpen(true)}
+              className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 border border-brand-gold/30 text-brand-gold rounded-full font-medium transition-all duration-300 hover:bg-brand-gold hover:text-brand-ink active:scale-95 text-xs uppercase tracking-[0.1em]"
+            >
+              Shop Now
+            </button>
+            <button className="md:hidden group">
+              <div className="w-6 h-[1px] bg-white mb-2 transition-all group-hover:bg-brand-gold"></div>
+              <div className="w-6 h-[1px] bg-white transition-all group-hover:bg-brand-gold w-4 ml-auto"></div>
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
 
