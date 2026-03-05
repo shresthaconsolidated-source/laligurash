@@ -21,7 +21,7 @@ export default function Corporate() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl lg:text-8xl mb-10 font-light text-white leading-[1.1]"
+            className="text-4xl sm:text-7xl lg:text-8xl mb-8 md:mb-10 font-light text-white leading-[1.1]"
           >
             Artisanal Scale for <br /><span className="italic text-gradient">Exceptional Occasions.</span>
           </motion.h1>
@@ -33,7 +33,7 @@ export default function Corporate() {
           >
             Whether it's a grand wedding in Kathmandu or corporate gifting for Dashain, Laliguras provides handcrafted elegance at scale.
           </motion.p>
-          <div className="aspect-[21/9] rounded-[2rem] overflow-hidden mb-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 relative">
+          <div className="aspect-[16/10] md:aspect-[21/9] rounded-[2rem] overflow-hidden mb-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 relative">
             <img
               src="/images/cg.png"
               alt="Corporate Gifting Collection"
@@ -49,7 +49,7 @@ export default function Corporate() {
       <section className="section-padding bg-brand-surface relative border-t border-white/5 rounded-t-[3rem]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-panel p-12 hover:-translate-y-2">
+            <div className="glass-panel p-8 md:p-12 hover:-translate-y-2">
               <Gift className="text-brand-gold mb-8 w-10 h-10" />
               <h3 className="text-3xl mb-4 text-white font-serif">Corporate Gifting</h3>
               <p className="text-white/50 leading-relaxed mb-8 font-light">
@@ -62,7 +62,7 @@ export default function Corporate() {
               </ul>
             </div>
 
-            <div className="glass-panel p-12 hover:-translate-y-2">
+            <div className="glass-panel p-8 md:p-12 hover:-translate-y-2">
               <Calendar className="text-brand-gold mb-8 w-10 h-10" />
               <h3 className="text-3xl mb-4 text-white font-serif">Weddings & Events</h3>
               <p className="text-white/50 leading-relaxed mb-8 font-light">
@@ -75,7 +75,7 @@ export default function Corporate() {
               </ul>
             </div>
 
-            <div className="glass-panel p-12 hover:-translate-y-2">
+            <div className="glass-panel p-8 md:p-12 hover:-translate-y-2">
               <Briefcase className="text-brand-gold mb-8 w-10 h-10" />
               <h3 className="text-3xl mb-4 text-white font-serif">Hospitality & Spas</h3>
               <p className="text-white/50 leading-relaxed mb-8 font-light">
@@ -119,7 +119,7 @@ export default function Corporate() {
       <section className="section-padding overflow-hidden relative border-t border-white/5">
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
         <div className="max-w-6xl mx-auto glass-panel overflow-hidden flex flex-col md:flex-row shadow-2xl relative z-10">
-          <div className="p-12 md:p-20 flex-1 relative">
+          <div className="p-8 md:p-20 flex-1 relative">
             <h2 className="text-4xl md:text-6xl mb-6 font-serif text-white">Let's collaborate.</h2>
             <p className="text-white/50 mb-12 text-lg font-light max-w-lg">
               Tell us about your event or gifting needs, and our team will get back to you with a tailored proposal within 24 hours.

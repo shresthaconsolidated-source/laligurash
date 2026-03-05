@@ -14,7 +14,7 @@ export default function About() {
             transition={{ duration: 0.8 }}
           >
             <span className="text-xs uppercase tracking-[0.4em] text-brand-gold font-medium mb-6 block">Our Roots</span>
-            <h1 className="text-5xl md:text-7xl mb-12 leading-[1.1] text-white font-light">
+            <h1 className="text-4xl sm:text-7xl mb-8 md:mb-12 leading-[1.1] text-white font-light">
               A Community <br /><span className="italic text-gradient">in Bloom.</span>
             </h1>
             <div className="space-y-8 text-lg text-white/50 font-light leading-relaxed">
@@ -65,25 +65,25 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="glass-panel p-12">
+            <div className="glass-panel p-8 md:p-12">
               <h3 className="text-2xl font-serif mb-4 text-brand-gold tracking-wide">Empowering Women Community</h3>
               <p className="text-white/50 leading-relaxed font-light">
                 We provide sustainable livelihoods and skill-building opportunities for our women community, fostering financial independence and creative pride.
               </p>
             </div>
-            <div className="glass-panel p-12">
+            <div className="glass-panel p-8 md:p-12">
               <h3 className="text-2xl font-serif mb-4 text-brand-gold tracking-wide">Preserving Tradition</h3>
               <p className="text-white/50 leading-relaxed font-light">
                 By utilizing traditional terracotta pottery from local kilns, we support the ancient craft of Nepalese potters while giving it a modern purpose.
               </p>
             </div>
-            <div className="glass-panel p-12">
+            <div className="glass-panel p-8 md:p-12">
               <h3 className="text-2xl font-serif mb-4 text-brand-gold tracking-wide">Artisanal Quality</h3>
               <p className="text-white/50 leading-relaxed font-light">
                 We refuse to compromise on quality. From premium scented waxes to the intricate detailing of our wax petals, every product is a masterpiece of slow-craft.
               </p>
             </div>
-            <div className="glass-panel p-12">
+            <div className="glass-panel p-8 md:p-12">
               <h3 className="text-2xl font-serif mb-4 text-brand-gold tracking-wide">Community Growth</h3>
               <p className="text-white/50 leading-relaxed font-light">
                 As a micro-enterprise, every purchase fuels the sustainable scaling of our group, allowing us to reach more homes and support more families.

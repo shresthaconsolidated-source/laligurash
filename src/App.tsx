@@ -28,7 +28,7 @@ function ShopNowModal({ onClose, preselected = '' }: { onClose: () => void; pres
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative w-full max-w-lg glass-panel p-10 md:p-12 z-10"
+          className="relative w-full max-w-lg glass-panel p-8 md:p-12 z-10"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -45,13 +45,13 @@ function ShopNowModal({ onClose, preselected = '' }: { onClose: () => void; pres
               className="text-center py-8"
             >
               <p className="text-4xl mb-4">🕯️</p>
-              <h3 className="text-3xl font-serif text-brand-gold mb-4">Inquiry Sent</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-brand-gold mb-4">Inquiry Sent</h3>
               <p className="text-white/60 font-light">Thank you for your interest. We will get back to you within 24 hours with our available collections.</p>
             </motion.div>
           ) : (
             <>
               <span className="text-xs uppercase tracking-[0.4em] text-brand-gold font-medium mb-4 block">Shop Inquiry</span>
-              <h2 className="text-3xl font-serif text-white mb-2">Request a Collection</h2>
+              <h2 className="text-2xl md:text-3xl font-serif text-white mb-2">Request a Collection</h2>
               <p className="text-white/40 text-sm font-light mb-10">Tell us what you're looking for and we'll curate the perfect selection for you.</p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -98,52 +98,87 @@ function ShopNowModal({ onClose, preselected = '' }: { onClose: () => void; pres
 function Navbar() {
   const location = useLocation();
   const { openShop } = useShopModal();
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  React.useEffect(() => { setMenuOpen(false); }, [location]);
+
+  const navLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'Our Story' },
+    { to: '/corporate', label: 'Corporate' },
+  ];
 
   return (
-    <nav className="glass-nav">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity duration-300">
-          <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
-          <span className="text-3xl font-serif tracking-widest text-brand-gold hidden sm:block pt-1">LALIGURAS</span>
-        </Link>
+    <>
+      <nav className="glass-nav">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 md:py-6 flex justify-between items-center">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-300">
+            <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-9 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
+            <span className="text-2xl md:text-3xl font-serif tracking-widest text-brand-gold hidden sm:block pt-1">LALIGURAS</span>
+          </Link>
 
-        <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
-          <Link to="/" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-            <span className="relative z-10">Home</span>
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-          </Link>
-          <Link to="/about" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/about' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-            <span className="relative z-10">Our Story</span>
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-          </Link>
-          <Link to="/corporate" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/corporate' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-            <span className="relative z-10">Corporate</span>
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/corporate' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-          </Link>
+          <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
+            {navLinks.map(({ to, label }) => (
+              <Link key={to} to={to} className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === to ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+                <span className="relative z-10">{label}</span>
+                <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === to ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => openShop()}
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2 border border-brand-gold/30 text-brand-gold rounded-full font-medium transition-all duration-300 hover:bg-brand-gold hover:text-brand-ink active:scale-95 text-xs uppercase tracking-[0.1em]"
+            >
+              Shop Now
+            </button>
+            <button
+              onClick={() => setMenuOpen(o => !o)}
+              className="md:hidden flex flex-col justify-center items-end w-8 h-8 gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <span className={`block w-6 h-[1.5px] bg-white transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
+              <span className={`block h-[1.5px] bg-white transition-all duration-300 ${menuOpen ? 'w-6 -rotate-45 -translate-y-[6px]' : 'w-4'}`} />
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <button
-            onClick={() => openShop()}
-            className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 border border-brand-gold/30 text-brand-gold rounded-full font-medium transition-all duration-300 hover:bg-brand-gold hover:text-brand-ink active:scale-95 text-xs uppercase tracking-[0.1em]"
-          >
-            Shop Now
-          </button>
-          <button className="md:hidden group">
-            <div className="w-6 h-[1px] bg-white mb-2 transition-all group-hover:bg-brand-gold"></div>
-            <div className="w-6 h-[1px] bg-white transition-all group-hover:bg-brand-gold w-4 ml-auto"></div>
-          </button>
-        </div>
-      </div>
-    </nav>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden border-t border-white/5 bg-brand-ink/95 backdrop-blur-xl"
+            >
+              <div className="px-6 py-6 flex flex-col gap-5">
+                {navLinks.map(({ to, label }) => (
+                  <Link key={to} to={to} className={`text-sm uppercase tracking-[0.3em] font-medium transition-colors ${location.pathname === to ? 'text-brand-gold' : 'text-white/70'}`}>
+                    {label}
+                  </Link>
+                ))}
+                <button
+                  onClick={() => { setMenuOpen(false); openShop(); }}
+                  className="mt-2 w-full py-3 border border-brand-gold/40 text-brand-gold rounded-full text-xs uppercase tracking-widest hover:bg-brand-gold hover:text-brand-ink transition-all duration-300"
+                >
+                  Shop Now
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 }
 
 function Footer() {
   return (
-    <footer className="bg-brand-surface border-t border-white/5 pt-24 pb-12 px-6 md:px-12 lg:px-24">
+    <footer className="bg-brand-surface border-t border-white/5 pt-16 md:pt-24 pb-12 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 mb-16 md:mb-24">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-4 mb-6">
               <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />

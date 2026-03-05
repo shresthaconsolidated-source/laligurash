@@ -36,7 +36,7 @@ export default function Home() {
             <span className="inline-block mb-6 text-xs uppercase tracking-[0.4em] font-medium text-brand-gold">
               Handcrafted in Nepal
             </span>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-light mb-8 leading-[0.9] text-white">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-light mb-6 md:mb-8 leading-[0.9] text-white">
               <span className="block text-brand-cream text-gradient">Illuminating</span>
               <span className="italic font-light">Heritage</span>
             </h1>
@@ -60,7 +60,7 @@ export default function Home() {
       <section className="section-padding bg-brand-ink relative z-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-panel p-10 md:p-14 text-center group">
+            <div className="glass-panel p-7 md:p-14 text-center group">
               <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
                 <Sparkles className="text-brand-gold w-6 h-6" />
               </div>
@@ -69,7 +69,7 @@ export default function Home() {
                 Every piece is hand-poured by our women community, ensuring unique character in every flame.
               </p>
             </div>
-            <div className="glass-panel p-10 md:p-14 text-center group translate-y-0 md:-translate-y-8">
+            <div className="glass-panel p-7 md:p-14 text-center group translate-y-0 md:-translate-y-8">
               <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
                 <Globe className="text-brand-gold w-6 h-6" />
               </div>
@@ -78,7 +78,7 @@ export default function Home() {
                 We blend traditional Nepalese terracotta with modern wax artistry to create a timeless aesthetic for the contemporary home.
               </p>
             </div>
-            <div className="glass-panel p-10 md:p-14 text-center group">
+            <div className="glass-panel p-7 md:p-14 text-center group">
               <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
                 <Heart className="text-brand-gold w-6 h-6" />
               </div>
@@ -97,7 +97,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
               <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
-              <h2 className="text-5xl md:text-6xl text-brand-cream leading-tight">Curated for Ambience</h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-brand-cream leading-tight">Curated for Ambience</h2>
             </div>
             <Link to="/collections" className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50 hover:text-brand-gold transition-colors duration-300">
               <span className="w-12 h-[1px] bg-white/20 group-hover:bg-brand-gold transition-colors duration-300"></span>
@@ -192,7 +192,7 @@ export default function Home() {
 
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <Sparkles className="w-8 h-8 text-brand-gold mx-auto mb-8 opacity-50" />
-          <h2 className="text-5xl md:text-7xl mb-8 font-serif leading-tight text-white">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl mb-8 font-serif leading-tight text-white">
             Bring the warmth of <br className="hidden md:block" /> Laliguras home.
           </h2>
           <p className="text-white/50 text-lg mb-14 font-light max-w-xl mx-auto leading-relaxed">
