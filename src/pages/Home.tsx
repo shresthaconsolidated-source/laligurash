@@ -89,39 +89,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Burn Time Feature Strip */}
-      <section className="py-12 px-6 md:px-12 bg-brand-ink border-y border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
-            {[
-              { product: 'Floating Flora', time: '1+ Hour', desc: 'Delicate floral water candle, perfect for serene evenings', icon: '🌸' },
-              { product: 'Petal Diyo', time: '3+ Hours', desc: 'Traditional terracotta oil lamp, hand-crafted for longevity', icon: '🏺' },
-              { product: 'Scented Candle', time: '4+ Hours', desc: 'Premium wax with rich fragrance that fills any room', icon: '🕯️' },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                className="flex items-center gap-6 px-8 py-8 group"
-              >
-                <div className="text-4xl flex-shrink-0">{item.icon}</div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-3 mb-1">
-                    <span className="text-xs uppercase tracking-[0.2em] text-white/40 font-medium">{item.product}</span>
-                    <span className="text-brand-gold font-serif text-xl font-light">{item.time}</span>
-                  </div>
-                  <p className="text-white/40 text-xs leading-relaxed font-light">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Featured Collections */}
-
       <section className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
@@ -145,6 +113,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
                 <img src="/images/4.png" alt="Signature Petal Diyos" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
+                {/* Burn time badge */}
+                <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-brand-ink/60 backdrop-blur-md border border-brand-gold/30 rounded-full px-4 py-2">
+                  <span className="text-brand-gold text-xs font-serif">🕯️ 3+ Hours</span>
+                </div>
                 <div className="absolute bottom-8 left-8 z-20">
                   <h3 className="text-3xl text-brand-cream mb-2">Signature Petal Diyos</h3>
                   <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
@@ -177,6 +149,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
                 <img src="/images/2.png" alt="Floating Flora" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
+                {/* Burn time badge */}
+                <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-brand-ink/60 backdrop-blur-md border border-brand-gold/30 rounded-full px-4 py-2">
+                  <span className="text-brand-gold text-xs font-serif">🌸 1+ Hour</span>
+                </div>
                 <div className="absolute bottom-8 left-8 z-20 pr-6">
                   <h3 className="text-2xl text-brand-cream mb-2">Floating Flora</h3>
                   <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
@@ -193,6 +169,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
                 <img src="/images/fb.png" alt="Festive Bundles" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
+                {/* Burn time badge */}
+                <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-brand-ink/60 backdrop-blur-md border border-brand-gold/30 rounded-full px-4 py-2">
+                  <span className="text-brand-gold text-xs font-serif">🕯️ 4+ Hours</span>
+                </div>
                 <div className="absolute bottom-8 left-8 z-20">
                   <h3 className="text-3xl text-brand-cream mb-2">Festive Bundles</h3>
                   <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
