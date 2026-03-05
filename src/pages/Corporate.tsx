@@ -7,7 +7,7 @@ export default function Corporate() {
   const [state, handleSubmit] = useForm("mreyzkkk");
 
   return (
-    <div className="pt-24 bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
+    <div className="bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
       {/* B2B Hero */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto text-center">

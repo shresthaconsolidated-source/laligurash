@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export default function About() {
   return (
-    <div className="pt-24 bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold relative overflow-hidden">
+    <div className="bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-[1000px] pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-gold/5 rounded-full blur-[120px]"></div>
         <div className="absolute top-[20%] right-[-5%] w-[400px] h-[400px] bg-brand-gold/3 rounded-full blur-[100px]"></div>
