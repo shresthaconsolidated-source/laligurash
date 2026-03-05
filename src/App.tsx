@@ -135,11 +135,12 @@ function Navbar() {
             </button>
             <button
               onClick={() => setMenuOpen(o => !o)}
-              className="md:hidden flex flex-col justify-center items-end w-8 h-8 gap-1.5"
+              className="md:hidden flex flex-col justify-center items-end w-10 h-10 gap-1.5 z-[60] relative"
               aria-label="Toggle menu"
             >
-              <span className={`block w-6 h-[1.5px] bg-white transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
-              <span className={`block h-[1.5px] bg-white transition-all duration-300 ${menuOpen ? 'w-6 -rotate-45 -translate-y-[6px]' : 'w-4'}`} />
+              <span className={`block w-6 h-[2px] bg-brand-gold transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[8px]' : ''}`} />
+              <span className={`block w-4 h-[2px] bg-brand-gold transition-all duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`block h-[2px] bg-brand-gold transition-all duration-300 ${menuOpen ? 'w-6 -rotate-45 -translate-y-[8px]' : 'w-6'}`} />
             </button>
           </div>
         </div>
