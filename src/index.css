@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  --color-brand-cream: #FDFBF7;
+  --color-brand-ink: #050505;
+  --color-brand-surface: #121212;
+  --color-brand-gold: #D4AF37;
+  --color-brand-rose: #C84B31;
+  --color-brand-terracotta: #C84B31;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-ink text-brand-cream font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-gold;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+.glass-nav {
+  @apply sticky top-0 z-50 bg-brand-ink/70 backdrop-blur-xl border-b border-white/5;
+}
+
+.section-padding {
+  @apply py-24 px-6 md:px-12 lg:px-24;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-8 py-4 bg-brand-gold text-brand-ink rounded-full font-medium transition-all duration-300 hover:bg-white hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] active:scale-95 text-xs uppercase tracking-[0.2em];
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-8 py-4 border border-white/20 text-brand-cream rounded-full font-medium transition-all duration-300 hover:border-brand-gold hover:text-brand-gold hover:bg-brand-gold/5 active:scale-95 text-xs uppercase tracking-[0.2em];
+}
+
+.glass-panel {
+  @apply bg-white/[0.02] backdrop-blur-lg border border-white/5 rounded-3xl transition-all duration-500 hover:bg-white/[0.04] hover:border-white/10;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-gold to-brand-terracotta;
+}
