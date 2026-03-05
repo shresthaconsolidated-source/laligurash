@@ -3,7 +3,11 @@ import { motion } from 'motion/react';
 
 export default function About() {
   return (
-    <div className="pt-24 bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
+    <div className="pt-24 bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[1000px] pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-gold/5 rounded-full blur-[120px]"></div>
+        <div className="absolute top-[20%] right-[-5%] w-[400px] h-[400px] bg-brand-gold/3 rounded-full blur-[100px]"></div>
+      </div>
       {/* Story Hero */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -47,15 +51,15 @@ export default function About() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 via-transparent to-transparent"></div>
             </div>
-            <div className="absolute -bottom-10 -left-10 bg-brand-surface border border-white/10 text-brand-cream p-10 rounded-[2rem] hidden md:block max-w-sm backdrop-blur-xl shadow-2xl">
-              <p className="text-2xl font-serif italic mb-4 text-brand-gold">"We don't just make candles; we preserve stories."</p>
+            <div className="absolute -bottom-6 -left-6 md:-bottom-10 md:-left-10 bg-brand-surface border border-white/10 text-brand-cream p-6 md:p-10 rounded-[2rem] w-[85%] md:max-w-sm backdrop-blur-xl shadow-2xl z-20">
+              <p className="text-xl md:text-2xl font-serif italic mb-4 text-brand-gold leading-tight">"We don't just make candles; we preserve stories."</p>
               <p className="text-xs uppercase tracking-[0.2em] opacity-50">— Our Artisans</p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Philosophy Section */}
       <section className="section-padding bg-brand-surface border-t border-white/5 mt-20 relative overflow-hidden rounded-t-[3rem]">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-gold/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto relative z-10">
@@ -88,6 +92,49 @@ export default function About() {
               <p className="text-white/50 leading-relaxed font-light">
                 As a micro-enterprise, every purchase fuels the sustainable scaling of our group, allowing us to reach more homes and support more families.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Craftsmanship Section */}
+      <section className="section-padding bg-brand-ink">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5">
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium mb-4 block">The Craft</span>
+              <h2 className="text-4xl md:text-6xl text-white mb-8 font-light leading-tight">Handcrafted with <span className="italic text-gradient">Intent.</span></h2>
+              <div className="space-y-10">
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 rounded-full border border-brand-gold/20 flex items-center justify-center flex-shrink-0 text-brand-gold font-serif italic text-xl">1</div>
+                  <div>
+                    <h4 className="text-xl text-white mb-2">Ethical Sourcing</h4>
+                    <p className="text-white/40 leading-relaxed font-light text-sm">We source our terracotta directly from local artisan kilns in the valley, ensuring fair trade at every step.</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 rounded-full border border-brand-gold/20 flex items-center justify-center flex-shrink-0 text-brand-gold font-serif italic text-xl">2</div>
+                  <div>
+                    <h4 className="text-xl text-white mb-2">The Molding Process</h4>
+                    <p className="text-white/40 leading-relaxed font-light text-sm">Every wax petal is individually hand-molded by our women community, making no two pieces exactly alike.</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 rounded-full border border-brand-gold/20 flex items-center justify-center flex-shrink-0 text-brand-gold font-serif italic text-xl">3</div>
+                  <div>
+                    <h4 className="text-xl text-white mb-2">Mindful Panning</h4>
+                    <p className="text-white/40 leading-relaxed font-light text-sm">The assembly of our Floating Flora is a meditative process, ensuring balance and beauty in every bowl.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-7 grid grid-cols-2 gap-6">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/5 mt-12">
+                <img src="/images/1.png" alt="Craft Process 1" className="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+              </div>
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/5">
+                <img src="/images/3.png" alt="Craft Process 2" className="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+              </div>
             </div>
           </div>
         </div>
