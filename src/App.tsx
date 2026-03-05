@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { motion, AnimatePresence } from 'motion/react';
 import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle, X } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
+import { ShopModalProvider, useShopModal } from './context/ShopModalContext';
 
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
 import Corporate from './pages/Corporate';
 
-function ShopNowModal({ onClose }: { onClose: () => void }) {
+function ShopNowModal({ onClose, preselected = '' }: { onClose: () => void; preselected?: string }) {
   const [state, handleSubmit] = useForm("mreyzkkk");
 
   return (
@@ -66,7 +67,7 @@ function ShopNowModal({ onClose }: { onClose: () => void }) {
                   <input type="tel" name="phone" placeholder="Your Phone / WhatsApp Number" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light text-sm" />
                 </div>
                 <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                  <select name="interest" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white/60 font-light text-sm appearance-none cursor-pointer">
+                  <select name="interest" defaultValue={preselected} className="w-full bg-transparent px-0 py-3 focus:outline-none text-white/60 font-light text-sm appearance-none cursor-pointer">
                     <option value="" className="bg-brand-ink">What are you looking for?</option>
                     <option value="Floating Flora" className="bg-brand-ink">Floating Flora</option>
                     <option value="Signature Petal Diyos" className="bg-brand-ink">Signature Petal Diyos</option>
@@ -96,48 +97,45 @@ function ShopNowModal({ onClose }: { onClose: () => void }) {
 
 function Navbar() {
   const location = useLocation();
-  const [shopOpen, setShopOpen] = React.useState(false);
+  const { openShop } = useShopModal();
 
   return (
-    <>
-      {shopOpen && <ShopNowModal onClose={() => setShopOpen(false)} />}
-      <nav className="glass-nav">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity duration-300">
-            <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
-            <span className="text-3xl font-serif tracking-widest text-brand-gold hidden sm:block pt-1">LALIGURAS</span>
+    <nav className="glass-nav">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity duration-300">
+          <img src="/images/logo_transparent.png" alt="Laliguras Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
+          <span className="text-3xl font-serif tracking-widest text-brand-gold hidden sm:block pt-1">LALIGURAS</span>
+        </Link>
+
+        <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
+          <Link to="/" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+            <span className="relative z-10">Home</span>
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
           </Link>
-
-          <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
-            <Link to="/" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-              <span className="relative z-10">Home</span>
-              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-            </Link>
-            <Link to="/about" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/about' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-              <span className="relative z-10">Our Story</span>
-              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-            </Link>
-            <Link to="/corporate" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/corporate' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
-              <span className="relative z-10">Corporate</span>
-              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/corporate' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <button
-              onClick={() => setShopOpen(true)}
-              className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 border border-brand-gold/30 text-brand-gold rounded-full font-medium transition-all duration-300 hover:bg-brand-gold hover:text-brand-ink active:scale-95 text-xs uppercase tracking-[0.1em]"
-            >
-              Shop Now
-            </button>
-            <button className="md:hidden group">
-              <div className="w-6 h-[1px] bg-white mb-2 transition-all group-hover:bg-brand-gold"></div>
-              <div className="w-6 h-[1px] bg-white transition-all group-hover:bg-brand-gold w-4 ml-auto"></div>
-            </button>
-          </div>
+          <Link to="/about" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/about' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+            <span className="relative z-10">Our Story</span>
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+          </Link>
+          <Link to="/corporate" className={`relative overflow-hidden group pb-1 transition-colors ${location.pathname === '/corporate' ? 'text-brand-gold' : 'text-white/60 hover:text-white'}`}>
+            <span className="relative z-10">Corporate</span>
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-brand-gold transform origin-left transition-transform duration-300 ${location.pathname === '/corporate' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+          </Link>
         </div>
-      </nav>
-    </>
+
+        <div className="flex items-center gap-6">
+          <button
+            onClick={() => openShop()}
+            className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 border border-brand-gold/30 text-brand-gold rounded-full font-medium transition-all duration-300 hover:bg-brand-gold hover:text-brand-ink active:scale-95 text-xs uppercase tracking-[0.1em]"
+          >
+            Shop Now
+          </button>
+          <button className="md:hidden group">
+            <div className="w-6 h-[1px] bg-white mb-2 transition-all group-hover:bg-brand-gold"></div>
+            <div className="w-6 h-[1px] bg-white transition-all group-hover:bg-brand-gold w-4 ml-auto"></div>
+          </button>
+        </div>
+      </div>
+    </nav>
   );
 }
 
@@ -234,24 +232,35 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const [shopOpen, setShopOpen] = React.useState(false);
+  const [preselected, setPreselected] = React.useState('');
+
+  const openShop = (product = '') => {
+    setPreselected(product);
+    setShopOpen(true);
+  };
+
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/corporate" element={<Corporate />} />
-              {/* Fallback to home for now */}
-              <Route path="*" element={<Home />} />
-            </Routes>
-          </AnimatePresence>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ShopModalProvider onOpen={openShop}>
+      <Router>
+        <ScrollToTop />
+        {shopOpen && <ShopNowModal preselected={preselected} onClose={() => setShopOpen(false)} />}
+        <div className="min-h-screen flex flex-col">
+          <Navbar />
+          <main className="flex-grow">
+            <AnimatePresence mode="wait">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/corporate" element={<Corporate />} />
+                {/* Fallback to home for now */}
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </AnimatePresence>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </ShopModalProvider>
   );
 }

@@ -3,9 +3,11 @@ import { motion } from 'motion/react';
 import { ArrowRight, Sparkles, Leaf, HeartHandshake, Globe, Heart, ChevronRight } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 import { Link } from 'react-router-dom';
+import { useShopModal } from '../context/ShopModalContext';
 
 export default function Home() {
   const [state, handleSubmit] = useForm("mreyzkkk");
+  const { openShop } = useShopModal();
 
   return (
     <div className="overflow-hidden bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
@@ -114,12 +116,12 @@ export default function Home() {
                 <img src="/images/4.png" alt="Signature Petal Diyos" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
                 {/* Burn time badge */}
-                <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-brand-ink/60 backdrop-blur-md border border-brand-gold/30 rounded-full px-4 py-2">
-                  <span className="text-brand-gold text-xs font-serif">🕯️ 3+ Hours</span>
+                <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
+                  <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 3+ Hours Burn</span>
                 </div>
                 <div className="absolute bottom-8 left-8 z-20">
                   <h3 className="text-3xl text-brand-cream mb-2">Signature Petal Diyos</h3>
-                  <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
+                  <button onClick={() => openShop('Signature Petal Diyos')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
                 </div>
               </div>
             </motion.div>
@@ -135,7 +137,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
                 <div className="absolute bottom-8 left-8 z-20">
                   <h3 className="text-2xl text-brand-cream mb-2">Corporate Gifting</h3>
-                  <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
+                  <button onClick={() => openShop('Corporate Gifting')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
                 </div>
               </div>
             </motion.div>
@@ -150,12 +152,12 @@ export default function Home() {
                 <img src="/images/2.png" alt="Floating Flora" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
                 {/* Burn time badge */}
-                <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-brand-ink/60 backdrop-blur-md border border-brand-gold/30 rounded-full px-4 py-2">
-                  <span className="text-brand-gold text-xs font-serif">🌸 1+ Hour</span>
+                <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
+                  <span className="text-brand-gold text-sm font-serif tracking-wide">🌸 1+ Hour Burn</span>
                 </div>
                 <div className="absolute bottom-8 left-8 z-20 pr-6">
                   <h3 className="text-2xl text-brand-cream mb-2">Floating Flora</h3>
-                  <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
+                  <button onClick={() => openShop('Floating Flora')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
                 </div>
               </div>
             </motion.div>
@@ -170,12 +172,12 @@ export default function Home() {
                 <img src="/images/fb.png" alt="Festive Bundles" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
                 {/* Burn time badge */}
-                <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-brand-ink/60 backdrop-blur-md border border-brand-gold/30 rounded-full px-4 py-2">
-                  <span className="text-brand-gold text-xs font-serif">🕯️ 4+ Hours</span>
+                <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
+                  <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 4+ Hours Burn</span>
                 </div>
                 <div className="absolute bottom-8 left-8 z-20">
                   <h3 className="text-3xl text-brand-cream mb-2">Festive Bundles</h3>
-                  <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore <ChevronRight size={14} /></span>
+                  <button onClick={() => openShop('Festive Bundles')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
                 </div>
               </div>
             </motion.div>
