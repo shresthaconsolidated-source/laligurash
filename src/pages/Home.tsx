@@ -89,7 +89,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Burn Time Feature Strip */}
+      <section className="py-12 px-6 md:px-12 bg-brand-ink border-y border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
+            {[
+              { product: 'Floating Flora', time: '1+ Hour', desc: 'Delicate floral water candle, perfect for serene evenings', icon: '🌸' },
+              { product: 'Petal Diyo', time: '3+ Hours', desc: 'Traditional terracotta oil lamp, hand-crafted for longevity', icon: '🏺' },
+              { product: 'Scented Candle', time: '4+ Hours', desc: 'Premium wax with rich fragrance that fills any room', icon: '🕯️' },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                className="flex items-center gap-6 px-8 py-8 group"
+              >
+                <div className="text-4xl flex-shrink-0">{item.icon}</div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40 font-medium">{item.product}</span>
+                    <span className="text-brand-gold font-serif text-xl font-light">{item.time}</span>
+                  </div>
+                  <p className="text-white/40 text-xs leading-relaxed font-light">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Featured Collections */}
+
       <section className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
