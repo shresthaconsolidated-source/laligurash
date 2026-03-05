@@ -149,6 +149,9 @@ export default function Corporate() {
                   </div>
                 </div>
                 <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <input type="tel" name="phone" placeholder="Phone / WhatsApp Number" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
+                </div>
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
                   <input type="text" name="company" placeholder="Company / Event Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
                 </div>
                 <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">

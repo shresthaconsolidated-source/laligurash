@@ -63,6 +63,9 @@ function ShopNowModal({ onClose }: { onClose: () => void }) {
                   <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1" />
                 </div>
                 <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
+                  <input type="tel" name="phone" placeholder="Your Phone / WhatsApp Number" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light text-sm" />
+                </div>
+                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
                   <select name="interest" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white/60 font-light text-sm appearance-none cursor-pointer">
                     <option value="" className="bg-brand-ink">What are you looking for?</option>
                     <option value="Floating Flora" className="bg-brand-ink">Floating Flora</option>
