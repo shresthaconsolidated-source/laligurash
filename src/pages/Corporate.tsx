@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Gift, Calendar, Briefcase, CheckCircle2 } from 'lucide-react'; // Retained Briefcase as it's used, and CheckCircle2. No explicit instruction to remove them or add Building2/Users.
+import { Gift, Calendar, Briefcase, CheckCircle2 } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 
 export default function Corporate() {

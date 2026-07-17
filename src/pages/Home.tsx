@@ -9,6 +9,11 @@ export default function Home() {
   const [state, handleSubmit] = useForm("mreyzkkk");
   const { openShop } = useShopModal();
 
+  const scrollToCollections = (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <div className="overflow-hidden bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
       {/* Hero Section */}
@@ -44,9 +49,9 @@ export default function Home() {
               Premium terracotta diyos and floating flora, born from the heart of community craftsmanship and ancient Nepalese traditions.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link to="/collections" className="btn-primary" aria-label="Explore the Collection">
+              <a href="#collections" onClick={scrollToCollections} className="btn-primary" aria-label="Explore the Collection">
                 Explore the Collection
-              </Link>
+              </a>
               <Link to="/about" className="group flex items-center gap-3 text-xs uppercase tracking-widest text-white/70 hover:text-brand-gold transition-colors duration-300">
                 <span>Our Story</span>
                 <span className="w-8 h-[1px] bg-white/30 group-hover:bg-brand-gold transition-colors duration-300"></span>
@@ -92,17 +97,17 @@ export default function Home() {
       </section>
 
       {/* Featured Collections */}
-      <section className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12">
+      <section id="collections" className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
               <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl text-brand-cream leading-tight">Curated for Ambience</h2>
             </div>
-            <Link to="/collections" className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50 hover:text-brand-gold transition-colors duration-300">
+            <button onClick={() => openShop()} className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50 hover:text-brand-gold transition-colors duration-300">
               <span className="w-12 h-[1px] bg-white/20 group-hover:bg-brand-gold transition-colors duration-300"></span>
               <span>View All</span>
-            </Link>
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
