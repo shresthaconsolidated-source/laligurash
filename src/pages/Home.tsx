@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="overflow-hidden bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           <video
             src="/videos/hero_bg.mp4"
@@ -28,38 +28,64 @@ export default function Home() {
             className="w-full h-full object-cover opacity-30 scale-105 mix-blend-screen"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-brand-ink/80 via-brand-ink/40 to-brand-ink" />
-          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-brand-ink to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-brand-ink to-transparent" />
         </div>
 
-        <div className="relative z-10 text-center max-w-5xl px-6 mt-16">
+        {/* Oversized ghost numeral, editorial signature mark */}
+        <span className="pointer-events-none select-none absolute top-16 right-0 sm:right-6 text-[9rem] sm:text-[14rem] lg:text-[20rem] font-serif text-white/[0.04] leading-none">
+          01
+        </span>
+
+        <div className="relative z-10 px-6 md:px-12 lg:px-24 pb-20 md:pb-28 pt-40">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col items-center"
+            className="max-w-6xl"
           >
-            <span className="inline-block mb-6 text-xs uppercase tracking-[0.4em] font-medium text-brand-gold">
-              Handcrafted in Nepal
-            </span>
-            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-light mb-6 md:mb-8 leading-[0.9] text-white">
+            <div className="flex items-center gap-4 mb-8">
+              <span className="w-16 h-[1px] bg-brand-gold" />
+              <span className="text-xs uppercase tracking-[0.4em] font-medium text-brand-gold">
+                Handcrafted in Nepal
+              </span>
+            </div>
+            <h1 className="text-6xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-serif font-light mb-10 leading-[0.85] text-white -ml-1">
               <span className="block text-brand-cream text-gradient">Illuminating</span>
               <span className="italic font-light">Heritage</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-              Premium terracotta diyos and floating flora, born from the heart of community craftsmanship and ancient Nepalese traditions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <a href="#collections" onClick={scrollToCollections} className="btn-primary" aria-label="Explore the Collection">
-                Explore the Collection
-              </a>
-              <Link to="/about" className="group flex items-center gap-3 text-xs uppercase tracking-widest text-white/70 hover:text-brand-gold transition-colors duration-300">
-                <span>Our Story</span>
-                <span className="w-8 h-[1px] bg-white/30 group-hover:bg-brand-gold transition-colors duration-300"></span>
-              </Link>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 max-w-5xl">
+              <p className="text-lg md:text-xl text-white/60 max-w-md font-light leading-relaxed">
+                Premium terracotta diyos and floating flora, born from the heart of community craftsmanship and ancient Nepalese traditions.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+                <a href="#collections" onClick={scrollToCollections} className="btn-primary" aria-label="Explore the Collection">
+                  Explore the Collection
+                </a>
+                <Link to="/about" className="group flex items-center gap-3 text-xs uppercase tracking-widest text-white/70 hover:text-brand-gold transition-colors duration-300">
+                  <span>Our Story</span>
+                  <span className="w-8 h-[1px] bg-white/30 group-hover:bg-brand-gold transition-colors duration-300"></span>
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Marquee strip */}
+      <div className="relative z-20 border-y border-white/5 bg-brand-ink py-5 overflow-hidden">
+        <div className="marquee-track">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="flex items-center shrink-0" aria-hidden={i === 1}>
+              {['Handcrafted in Nepal', 'Artisan-Led', 'Small Batch', 'Women-Owned Community'].map((label) => (
+                <span key={label} className="flex items-center text-xs uppercase tracking-[0.3em] text-white/40 px-8">
+                  {label}
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/50 ml-8" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Value Proposition */}
       <section className="section-padding bg-brand-ink relative z-20">
@@ -97,8 +123,11 @@ export default function Home() {
       </section>
 
       {/* Featured Collections */}
-      <section id="collections" className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12 scroll-mt-24">
-        <div className="max-w-7xl mx-auto">
+      <section id="collections" className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12 scroll-mt-24 overflow-hidden">
+        <span className="pointer-events-none select-none absolute -top-4 right-6 md:right-16 text-[10rem] md:text-[16rem] font-serif text-white/[0.03] leading-none">
+          02
+        </span>
+        <div className="max-w-7xl mx-auto relative">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
               <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
@@ -116,10 +145,12 @@ export default function Home() {
               whileHover={{ y: -5 }}
               className="md:col-span-8 group cursor-pointer"
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-brand-ink">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
                 <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                <img src="/images/4.png" alt="Signature Petal Diyos" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <img src="/images/4.png" alt="Signature Petal Diyos" className="w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
+                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">01</span>
                 {/* Burn time badge */}
                 <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
                   <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 3+ Hours Burn</span>
@@ -136,10 +167,12 @@ export default function Home() {
               whileHover={{ y: -5 }}
               className="md:col-span-4 group cursor-pointer"
             >
-              <div className="relative h-full min-h-[300px] overflow-hidden rounded-[2rem] bg-brand-ink">
+              <div className="relative h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
                 <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
-                <img src="/images/cg.png" alt="Corporate Gifting" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <img src="/images/cg.png" alt="Corporate Gifting" className="absolute inset-0 w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
+                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">02</span>
                 <div className="absolute bottom-8 left-8 z-20">
                   <h3 className="text-2xl text-brand-cream mb-2">Corporate Gifting</h3>
                   <button onClick={() => openShop('Corporate Gifting')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
@@ -152,10 +185,12 @@ export default function Home() {
               whileHover={{ y: -5 }}
               className="md:col-span-4 group cursor-pointer"
             >
-              <div className="relative h-full min-h-[300px] overflow-hidden rounded-[2rem] bg-brand-ink">
+              <div className="relative h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
                 <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
-                <img src="/images/2.png" alt="Floating Flora" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <img src="/images/2.png" alt="Floating Flora" className="absolute inset-0 w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
+                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">03</span>
                 {/* Burn time badge */}
                 <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
                   <span className="text-brand-gold text-sm font-serif tracking-wide">🌸 1+ Hour Burn</span>
@@ -172,10 +207,12 @@ export default function Home() {
               whileHover={{ y: -5 }}
               className="md:col-span-8 group cursor-pointer"
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-brand-ink">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
                 <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                <img src="/images/fb.png" alt="Festive Bundles" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <img src="/images/fb.png" alt="Festive Bundles" className="w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
+                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">04</span>
                 {/* Burn time badge */}
                 <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
                   <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 4+ Hours Burn</span>
