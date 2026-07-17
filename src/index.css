@@ -14,6 +14,10 @@
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply bg-brand-ink text-brand-cream font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-gold;
   }

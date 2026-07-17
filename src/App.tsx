@@ -245,7 +245,7 @@ function Footer() {
         </div>
 
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-light text-white/30 uppercase tracking-widest">
-          <p>© 2024 Laliguras. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Laliguras. All rights reserved.</p>
           <p>Handcrafted with heart in Nepal</p>
         </div>
       </div>
