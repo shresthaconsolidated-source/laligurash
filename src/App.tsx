@@ -279,6 +279,7 @@ export default function App() {
   return (
     <ShopModalProvider onOpen={openShop}>
       <Router>
+        <div className="grain-overlay" />
         <ScrollToTop />
         {shopOpen && <ShopNowModal preselected={preselected} onClose={() => setShopOpen(false)} />}
         <div className="min-h-screen flex flex-col">
