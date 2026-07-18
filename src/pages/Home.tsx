@@ -1,13 +1,20 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight, Sparkles, Leaf, HeartHandshake, Globe, Heart, ChevronRight } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 import { Link } from 'react-router-dom';
 import { useShopModal } from '../context/ShopModalContext';
+import { Reveal, ParallaxImage, CursorArea } from '../components/ScrollFX';
 
 export default function Home() {
   const [state, handleSubmit] = useForm("mreyzkkk");
   const { openShop } = useShopModal();
+
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const heroVideoY = useTransform(heroProgress, [0, 1], [0, 160]);
+  const heroNumeralY = useTransform(heroProgress, [0, 1], [0, -220]);
+  const heroContentOpacity = useTransform(heroProgress, [0, 0.7], [1, 0]);
 
   const scrollToCollections = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -17,26 +24,29 @@ export default function Home() {
   return (
     <div className="overflow-hidden bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-end overflow-hidden">
+        <motion.div style={{ y: heroVideoY }} className="absolute inset-0 z-0">
           <video
             src="/videos/hero_bg.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-30 scale-105 mix-blend-screen"
+            className="w-full h-full object-cover opacity-30 scale-110 mix-blend-screen"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-brand-ink/80 via-brand-ink/40 to-brand-ink" />
           <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-brand-ink to-transparent" />
-        </div>
+        </motion.div>
 
         {/* Oversized ghost numeral, editorial signature mark */}
-        <span className="pointer-events-none select-none absolute top-16 right-0 sm:right-6 text-[9rem] sm:text-[14rem] lg:text-[20rem] font-serif text-white/[0.04] leading-none">
+        <motion.span
+          style={{ y: heroNumeralY }}
+          className="pointer-events-none select-none absolute top-16 right-0 sm:right-6 text-[9rem] sm:text-[14rem] lg:text-[20rem] font-serif text-white/[0.04] leading-none"
+        >
           01
-        </span>
+        </motion.span>
 
-        <div className="relative z-10 px-6 md:px-12 lg:px-24 pb-20 md:pb-28 pt-40">
+        <motion.div style={{ opacity: heroContentOpacity }} className="relative z-10 px-6 md:px-12 lg:px-24 pb-20 md:pb-28 pt-40">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -68,7 +78,7 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Marquee strip */}
@@ -91,33 +101,39 @@ export default function Home() {
       <section className="section-padding bg-brand-ink relative z-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-panel p-7 md:p-14 text-center group">
-              <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
-                <Sparkles className="text-brand-gold w-6 h-6" />
+            <Reveal delay={0}>
+              <div className="glass-panel p-7 md:p-14 text-center group h-full">
+                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
+                  <Sparkles className="text-brand-gold w-6 h-6" />
+                </div>
+                <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Artisan-Led</h3>
+                <p className="text-white/50 leading-relaxed font-light text-sm">
+                  Every piece is hand-poured by our women community, ensuring unique character in every flame.
+                </p>
               </div>
-              <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Artisan-Led</h3>
-              <p className="text-white/50 leading-relaxed font-light text-sm">
-                Every piece is hand-poured by our women community, ensuring unique character in every flame.
-              </p>
-            </div>
-            <div className="glass-panel p-7 md:p-14 text-center group translate-y-0 md:-translate-y-8">
-              <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
-                <Globe className="text-brand-gold w-6 h-6" />
+            </Reveal>
+            <Reveal delay={0.15} className="md:-translate-y-8">
+              <div className="glass-panel p-7 md:p-14 text-center group h-full">
+                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
+                  <Globe className="text-brand-gold w-6 h-6" />
+                </div>
+                <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Culturally Rooted</h3>
+                <p className="text-white/50 leading-relaxed font-light text-sm">
+                  We blend traditional Nepalese terracotta with modern wax artistry to create a timeless aesthetic for the contemporary home.
+                </p>
               </div>
-              <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Culturally Rooted</h3>
-              <p className="text-white/50 leading-relaxed font-light text-sm">
-                We blend traditional Nepalese terracotta with modern wax artistry to create a timeless aesthetic for the contemporary home.
-              </p>
-            </div>
-            <div className="glass-panel p-7 md:p-14 text-center group">
-              <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
-                <Heart className="text-brand-gold w-6 h-6" />
+            </Reveal>
+            <Reveal delay={0.3}>
+              <div className="glass-panel p-7 md:p-14 text-center group h-full">
+                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
+                  <Heart className="text-brand-gold w-6 h-6" />
+                </div>
+                <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Sustainable Impact</h3>
+                <p className="text-white/50 leading-relaxed font-light text-sm">
+                  Your purchase directly supports our women community and local micro-enterprise growth.
+                </p>
               </div>
-              <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Sustainable Impact</h3>
-              <p className="text-white/50 leading-relaxed font-light text-sm">
-                Your purchase directly supports our women community and local micro-enterprise growth.
-              </p>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -128,101 +144,99 @@ export default function Home() {
           02
         </span>
         <div className="max-w-7xl mx-auto relative">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div className="max-w-xl">
-              <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-brand-cream leading-tight">Curated for Ambience</h2>
+          <Reveal delay={0} y={24}>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+              <div className="max-w-xl">
+                <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl text-brand-cream leading-tight">Curated for Ambience</h2>
+              </div>
+              <button onClick={() => openShop()} className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50 hover:text-brand-gold transition-colors duration-300">
+                <span className="w-12 h-[1px] bg-white/20 group-hover:bg-brand-gold transition-colors duration-300"></span>
+                <span>View All</span>
+              </button>
             </div>
-            <button onClick={() => openShop()} className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50 hover:text-brand-gold transition-colors duration-300">
-              <span className="w-12 h-[1px] bg-white/20 group-hover:bg-brand-gold transition-colors duration-300"></span>
-              <span>View All</span>
-            </button>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Item 1 - Top Left Large */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="md:col-span-8 group cursor-pointer"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
-                <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                <img src="/images/4.png" alt="Signature Petal Diyos" className="w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
-                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">01</span>
-                {/* Burn time badge */}
-                <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
-                  <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 3+ Hours Burn</span>
-                </div>
-                <div className="absolute bottom-8 left-8 z-20">
-                  <h3 className="text-3xl text-brand-cream mb-2">Signature Petal Diyos</h3>
-                  <button onClick={() => openShop('Signature Petal Diyos')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                </div>
-              </div>
-            </motion.div>
+            <Reveal delay={0} className="md:col-span-8">
+              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
+                <CursorArea label="View" className="aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
+                  <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                  <ParallaxImage src="/images/4.png" alt="Signature Petal Diyos" className="grayscale-[55%] contrast-110 brightness-90" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
+                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">01</span>
+                  {/* Burn time badge */}
+                  <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
+                    <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 3+ Hours Burn</span>
+                  </div>
+                  <div className="absolute bottom-8 left-8 z-20">
+                    <h3 className="text-3xl text-brand-cream mb-2">Signature Petal Diyos</h3>
+                    <button onClick={() => openShop('Signature Petal Diyos')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
+                  </div>
+                </CursorArea>
+              </motion.div>
+            </Reveal>
 
             {/* Item 2 - Top Right Small */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="md:col-span-4 group cursor-pointer"
-            >
-              <div className="relative h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
-                <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
-                <img src="/images/cg.png" alt="Corporate Gifting" className="absolute inset-0 w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
-                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">02</span>
-                <div className="absolute bottom-8 left-8 z-20">
-                  <h3 className="text-2xl text-brand-cream mb-2">Corporate Gifting</h3>
-                  <button onClick={() => openShop('Corporate Gifting')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                </div>
-              </div>
-            </motion.div>
+            <Reveal delay={0.1} className="md:col-span-4">
+              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer h-full">
+                <CursorArea label="View" className="h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
+                  <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
+                  <ParallaxImage src="/images/cg.png" alt="Corporate Gifting" className="grayscale-[55%] contrast-110 brightness-90" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
+                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">02</span>
+                  <div className="absolute bottom-8 left-8 z-20">
+                    <h3 className="text-2xl text-brand-cream mb-2">Corporate Gifting</h3>
+                    <button onClick={() => openShop('Corporate Gifting')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
+                  </div>
+                </CursorArea>
+              </motion.div>
+            </Reveal>
 
             {/* Item 3 - Bottom Left Small */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="md:col-span-4 group cursor-pointer"
-            >
-              <div className="relative h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
-                <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
-                <img src="/images/2.png" alt="Floating Flora" className="absolute inset-0 w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
-                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">03</span>
-                {/* Burn time badge */}
-                <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
-                  <span className="text-brand-gold text-sm font-serif tracking-wide">🌸 1+ Hour Burn</span>
-                </div>
-                <div className="absolute bottom-8 left-8 z-20 pr-6">
-                  <h3 className="text-2xl text-brand-cream mb-2">Floating Flora</h3>
-                  <button onClick={() => openShop('Floating Flora')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                </div>
-              </div>
-            </motion.div>
+            <Reveal delay={0} className="md:col-span-4">
+              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer h-full">
+                <CursorArea label="View" className="h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
+                  <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
+                  <ParallaxImage src="/images/2.png" alt="Floating Flora" className="grayscale-[55%] contrast-110 brightness-90" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
+                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">03</span>
+                  {/* Burn time badge */}
+                  <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
+                    <span className="text-brand-gold text-sm font-serif tracking-wide">🌸 1+ Hour Burn</span>
+                  </div>
+                  <div className="absolute bottom-8 left-8 z-20 pr-6">
+                    <h3 className="text-2xl text-brand-cream mb-2">Floating Flora</h3>
+                    <button onClick={() => openShop('Floating Flora')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
+                  </div>
+                </CursorArea>
+              </motion.div>
+            </Reveal>
 
             {/* Item 4 - Bottom Right Large */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="md:col-span-8 group cursor-pointer"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
-                <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                <img src="/images/fb.png" alt="Festive Bundles" className="w-full h-full object-cover grayscale-[55%] contrast-110 brightness-90 transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
-                <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">04</span>
-                {/* Burn time badge */}
-                <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
-                  <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 4+ Hours Burn</span>
-                </div>
-                <div className="absolute bottom-8 left-8 z-20">
-                  <h3 className="text-3xl text-brand-cream mb-2">Festive Bundles</h3>
-                  <button onClick={() => openShop('Festive Bundles')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                </div>
-              </div>
-            </motion.div>
+            <Reveal delay={0.1} className="md:col-span-8">
+              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
+                <CursorArea label="View" className="aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
+                  <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                  <ParallaxImage src="/images/fb.png" alt="Festive Bundles" className="grayscale-[55%] contrast-110 brightness-90" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
+                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">04</span>
+                  {/* Burn time badge */}
+                  <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
+                    <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 4+ Hours Burn</span>
+                  </div>
+                  <div className="absolute bottom-8 left-8 z-20">
+                    <h3 className="text-3xl text-brand-cream mb-2">Festive Bundles</h3>
+                    <button onClick={() => openShop('Festive Bundles')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
+                  </div>
+                </CursorArea>
+              </motion.div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -232,7 +246,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-gold/10 via-brand-ink to-brand-ink opacity-60"></div>
         <div className="absolute inset-0 bg-[url('/images/5.png')] opacity-[0.03] mix-blend-screen bg-cover bg-center"></div>
 
-        <div className="max-w-3xl mx-auto text-center relative z-10">
+        <Reveal className="max-w-3xl mx-auto text-center relative z-10">
           <Sparkles className="w-8 h-8 text-brand-gold mx-auto mb-8 opacity-50" />
           <h2 className="text-4xl md:text-5xl lg:text-7xl mb-8 font-serif leading-tight text-white">
             Bring the warmth of <br className="hidden md:block" /> Laliguras home.
@@ -272,7 +286,7 @@ export default function Home() {
               </button>
             </form>
           )}
-        </div>
+        </Reveal>
       </section>
 
       <style dangerouslySetInnerHTML={{
