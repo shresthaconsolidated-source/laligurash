@@ -101,7 +101,7 @@ export default function Home() {
       <section className="section-padding bg-brand-ink relative z-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Reveal delay={0}>
+            <Reveal delay={0} from="left">
               <div className="glass-panel p-7 md:p-14 text-center group h-full">
                 <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
                   <Sparkles className="text-brand-gold w-6 h-6" />
@@ -112,7 +112,7 @@ export default function Home() {
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={0.15} className="md:-translate-y-8">
+            <Reveal delay={0.15} from="up" className="md:-translate-y-8">
               <div className="glass-panel p-7 md:p-14 text-center group h-full">
                 <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
                   <Globe className="text-brand-gold w-6 h-6" />
@@ -123,7 +123,7 @@ export default function Home() {
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={0.3}>
+            <Reveal delay={0.3} from="right">
               <div className="glass-panel p-7 md:p-14 text-center group h-full">
                 <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
                   <Heart className="text-brand-gold w-6 h-6" />
@@ -144,7 +144,7 @@ export default function Home() {
           02
         </span>
         <div className="max-w-7xl mx-auto relative">
-          <Reveal delay={0} y={24}>
+          <Reveal delay={0} from="up" distance={60}>
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
               <div className="max-w-xl">
                 <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
@@ -159,7 +159,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Item 1 - Top Left Large */}
-            <Reveal delay={0} className="md:col-span-8">
+            <Reveal delay={0} from="left" className="md:col-span-8">
               <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
                 <CursorArea label="View" className="aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
                   <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
@@ -180,7 +180,7 @@ export default function Home() {
             </Reveal>
 
             {/* Item 2 - Top Right Small */}
-            <Reveal delay={0.1} className="md:col-span-4">
+            <Reveal delay={0.1} from="right" className="md:col-span-4">
               <motion.div whileHover={{ y: -5 }} className="group cursor-pointer h-full">
                 <CursorArea label="View" className="h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
                   <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
@@ -197,7 +197,7 @@ export default function Home() {
             </Reveal>
 
             {/* Item 3 - Bottom Left Small */}
-            <Reveal delay={0} className="md:col-span-4">
+            <Reveal delay={0} from="left" className="md:col-span-4">
               <motion.div whileHover={{ y: -5 }} className="group cursor-pointer h-full">
                 <CursorArea label="View" className="h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
                   <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
@@ -218,7 +218,7 @@ export default function Home() {
             </Reveal>
 
             {/* Item 4 - Bottom Right Large */}
-            <Reveal delay={0.1} className="md:col-span-8">
+            <Reveal delay={0.1} from="right" className="md:col-span-8">
               <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
                 <CursorArea label="View" className="aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
                   <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />

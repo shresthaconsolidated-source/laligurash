@@ -14,24 +14,43 @@ export function ScrollProgressBar() {
   );
 }
 
-/** Fades/slides children in the first time they enter the viewport. */
+type FlyFrom = 'up' | 'down' | 'left' | 'right';
+
+const FLY_OFFSETS: Record<FlyFrom, { x: number; y: number; rotate: number }> = {
+  up: { x: 0, y: 120, rotate: 0 },
+  down: { x: 0, y: -120, rotate: 0 },
+  left: { x: -220, y: 40, rotate: -8 },
+  right: { x: 220, y: 40, rotate: 8 },
+};
+
+/**
+ * Flies children in from off-frame the first time they enter the viewport -
+ * a bigger, springier entrance than a plain fade, so different elements can
+ * arrive from different directions ("here and there") as the page scrolls.
+ */
 export function Reveal({
   children,
   delay = 0,
-  y = 40,
+  from = 'up',
+  distance,
   className = '',
 }: {
   children: React.ReactNode;
   delay?: number;
-  y?: number;
+  from?: FlyFrom;
+  distance?: number;
   className?: string;
 }) {
+  const base = FLY_OFFSETS[from];
+  const scale = distance ? distance / (Math.abs(base.x) || Math.abs(base.y) || 1) : 1;
+  const offset = distance ? { x: base.x * scale, y: base.y * scale, rotate: base.rotate } : base;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      initial={{ opacity: 0, x: offset.x, y: offset.y, rotate: offset.rotate, scale: 0.92 }}
+      whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ type: 'spring', stiffness: 90, damping: 16, mass: 0.9, delay }}
       className={className}
     >
       {children}
