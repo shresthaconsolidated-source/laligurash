@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle, X } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 import { ShopModalProvider, useShopModal } from './context/ShopModalContext';
+import { ScrollProgressBar } from './components/ScrollFX';
 
 // Pages
 import Home from './pages/Home';
@@ -280,6 +281,7 @@ export default function App() {
     <ShopModalProvider onOpen={openShop}>
       <Router>
         <div className="grain-overlay" />
+        <ScrollProgressBar />
         <ScrollToTop />
         {shopOpen && <ShopNowModal preselected={preselected} onClose={() => setShopOpen(false)} />}
         <div className="min-h-screen flex flex-col">
