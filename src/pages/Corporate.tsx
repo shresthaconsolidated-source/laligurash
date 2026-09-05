@@ -1,183 +1,158 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { Gift, Calendar, Briefcase, CheckCircle2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useForm, ValidationError } from '@formspree/react';
+import { Check } from 'lucide-react';
+import SplitText from '../components/bits/SplitText';
+import AnimatedContent from '../components/bits/AnimatedContent';
+import SpotlightCard from '../components/bits/SpotlightCard';
+import { PRODUCTS, npr } from '../data/products';
+
+const fieldCls =
+  'w-full rounded-xl border border-ink/20 bg-paper px-4 py-3 text-ink placeholder:text-ink/40 focus:outline-none focus:border-red focus:ring-2 focus:ring-red/20 transition';
+const labelCls = 'block text-sm font-semibold mb-2';
+
+const OFFERS = [
+  {
+    title: 'Festival gifting',
+    body: 'Dashain and Tihar hampers for staff and clients. Diyos by the dozen, matkas by the box, your logo on the label.',
+    points: ['From 50 pieces', 'Custom label and box', 'Delivery across the valley'],
+    image: '/catalog/floral-pots.jpg',
+  },
+  {
+    title: 'Weddings and events',
+    body: 'Return gifts (koseli) and table candles. Succulent pots and daisy cards are the usual picks.',
+    points: ['Personalised tags', 'Colour matched to the decor', 'Fixed delivery date'],
+    image: '/catalog/succulent-pots.jpg',
+  },
+  {
+    title: 'Hotels, shops and spas',
+    body: 'Souvenir glasses for the lobby shop, lotus candles for treatment rooms, monthly restock.',
+    points: ['Wholesale price list', 'Monthly supply', 'Display samples on request'],
+    image: '/catalog/shot-glass-stupa.jpg',
+  },
+];
+
+const BULK_PICKS = ['floral-diyo', 'daisy-candle', 'succulent-pot', 'souvenir-shot-glass'];
 
 export default function Corporate() {
-  const [state, handleSubmit] = useForm("mreyzkkk");
+  const [state, handleSubmit] = useForm('mreyzkkk');
+  const picks = PRODUCTS.filter((p) => BULK_PICKS.includes(p.slug));
 
   return (
-    <div className="bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
-      {/* B2B Hero */}
-      <section className="section-padding">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-xs uppercase tracking-[0.4em] font-medium text-brand-gold mb-6 block"
-          >
-            B2B & Events
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-7xl lg:text-8xl mb-8 md:mb-10 font-light text-white leading-[1.1]"
-          >
-            Artisanal Scale for <br /><span className="italic text-gradient">Exceptional Occasions.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-white/50 max-w-3xl mx-auto font-light mb-16 leading-relaxed"
-          >
-            Whether it's a grand wedding in Kathmandu or corporate gifting for Dashain, Laliguras provides handcrafted elegance at scale.
-          </motion.p>
-          <div className="aspect-[16/10] md:aspect-[21/9] rounded-[2rem] overflow-hidden mb-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 relative">
-            <img
-              src="/images/cg.png"
-              alt="Corporate Gifting Collection"
-              className="w-full h-full object-cover grayscale-[10%]"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-brand-ink/30"></div>
-          </div>
+    <div>
+      <section className="wrap pt-14 md:pt-20 pb-16">
+        <div className="max-w-4xl">
+          <SplitText text="Gifts that were made here." as="h1" className="text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] pb-2" delay={0.06} />
+          <p className="mt-6 text-lg text-mute max-w-xl leading-relaxed">
+            Bulk candles for Dashain, Tihar, weddings and hotel shops. Hand-poured in Lalitpur, labelled for you, delivered on a date.
+          </p>
+          <a href="#quote" className="btn-red mt-9">Request a quote</a>
         </div>
+        <AnimatedContent className="mt-14 card overflow-hidden">
+          <img src="/images/fb.png" alt="Tihar table with lit diyos and marigolds" className="w-full aspect-[16/9] md:aspect-[21/9] object-cover" />
+        </AnimatedContent>
       </section>
 
-      {/* Services Grid */}
-      <section className="section-padding bg-brand-surface relative border-t border-white/5 rounded-t-[3rem]">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-panel p-8 md:p-12 hover:-translate-y-2">
-              <Gift className="text-brand-gold mb-8 w-10 h-10" />
-              <h3 className="text-3xl mb-4 text-white font-serif">Corporate Gifting</h3>
-              <p className="text-white/50 leading-relaxed mb-8 font-light">
-                Elevate your corporate identity with customized gift hampers. Perfect for Dashain, Tihar, or employee appreciation milestones.
-              </p>
-              <ul className="space-y-4 text-sm text-white/70 font-light">
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Custom Branding Options</li>
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Premium Packaging</li>
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Tiered Bulk Pricing</li>
-              </ul>
+      {/* Three offers as a 1 + 2 asymmetric layout */}
+      <section className="wrap pb-20 md:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {OFFERS.map((o, i) => (
+          <AnimatedContent key={o.title} delay={i * 0.08} className={i === 0 ? 'lg:col-span-12' : 'lg:col-span-6'}>
+            <div className={`card overflow-hidden bg-paper-2 h-full grid ${i === 0 ? 'md:grid-cols-2' : 'grid-cols-1'}`}>
+              <img
+                src={o.image}
+                alt=""
+                loading="lazy"
+                className={`w-full object-cover ${i === 0 ? 'aspect-[4/3] md:aspect-auto md:h-full' : 'aspect-[16/9]'}`}
+              />
+              <div className="p-7 md:p-10 flex flex-col">
+                <h2 className="text-3xl md:text-4xl mb-3">{o.title}</h2>
+                <p className="text-mute leading-relaxed">{o.body}</p>
+                <ul className="mt-6 space-y-2 text-sm font-semibold">
+                  {o.points.map((pt) => (
+                    <li key={pt} className="flex items-center gap-2">
+                      <Check size={15} className="text-red" strokeWidth={2.5} /> {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-
-            <div className="glass-panel p-8 md:p-12 hover:-translate-y-2">
-              <Calendar className="text-brand-gold mb-8 w-10 h-10" />
-              <h3 className="text-3xl mb-4 text-white font-serif">Weddings & Events</h3>
-              <p className="text-white/50 leading-relaxed mb-8 font-light">
-                Create an unforgettable atmosphere with our Floating Flora or provide guests with a piece of heritage as a 'Koseli' (return gift).
-              </p>
-              <ul className="space-y-4 text-sm text-white/70 font-light">
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Event Decor Consultation</li>
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Personalized Tags</li>
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Reliable Delivery Timelines</li>
-              </ul>
-            </div>
-
-            <div className="glass-panel p-8 md:p-12 hover:-translate-y-2">
-              <Briefcase className="text-brand-gold mb-8 w-10 h-10" />
-              <h3 className="text-3xl mb-4 text-white font-serif">Hospitality & Spas</h3>
-              <p className="text-white/50 leading-relaxed mb-8 font-light">
-                Partner with us to provide your guests with a sensory experience that reflects the warmth and beauty of Nepal.
-              </p>
-              <ul className="space-y-4 text-sm text-white/70 font-light">
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Signature Scent Development</li>
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Monthly Subscription Supply</li>
-                <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-brand-gold flex-shrink-0" /> Boutique Retail Support</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          </AnimatedContent>
+        ))}
       </section>
 
-      {/* Visual Showcase (4-Image Bento Grid) */}
-      <section className="section-padding bg-brand-surface pb-32">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-xs uppercase tracking-[0.4em] font-medium text-brand-gold mb-4 block">The Experience</span>
-            <h2 className="text-4xl md:text-5xl font-serif text-white">Artisanal Details</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-4 aspect-square rounded-[2rem] overflow-hidden bg-brand-ink relative shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
-              <img src="/images/1.png" alt="Detail 1" className="w-full h-full object-cover opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-700" />
-            </div>
-            <div className="md:col-span-8 aspect-[2/1] rounded-[2rem] overflow-hidden bg-brand-ink relative shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
-              <img src="/images/cg.png" alt="Detail 2" className="w-full h-full object-cover opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-700" />
-            </div>
-            <div className="md:col-span-8 aspect-[2/1] rounded-[2rem] overflow-hidden bg-brand-ink relative shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
-              <img src="/images/3.png" alt="Detail 3" className="w-full h-full object-cover opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-700" />
-            </div>
-            <div className="md:col-span-4 aspect-square rounded-[2rem] overflow-hidden bg-brand-ink relative shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
-              <img src="/images/fb.png" alt="Detail 4" className="w-full h-full object-cover opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-700" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form / CTA */}
-      <section className="section-padding overflow-hidden relative border-t border-white/5">
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
-        <div className="max-w-6xl mx-auto glass-panel overflow-hidden flex flex-col md:flex-row shadow-2xl relative z-10">
-          <div className="p-8 md:p-20 flex-1 relative">
-            <h2 className="text-4xl md:text-6xl mb-6 font-serif text-white">Let's collaborate.</h2>
-            <p className="text-white/50 mb-12 text-lg font-light max-w-lg">
-              Tell us about your event or gifting needs, and our team will get back to you with a tailored proposal within 24 hours.
-            </p>
-            {state.succeeded ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="glass-panel p-10 text-center border-brand-gold/30"
-              >
-                <h3 className="text-3xl font-serif text-brand-gold mb-4">Inquiry Sent</h3>
-                <p className="text-white/70 font-light">Thank you for reaching out. Our events team will review your requirements and contact you within 24 hours.</p>
-              </motion.div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-8"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                    <input type="text" name="name" required placeholder="Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
-                    <ValidationError prefix="Name" field="name" errors={state.errors} />
+      {/* Bulk favourites */}
+      <section className="bg-olive-deep text-paper section">
+        <div className="wrap">
+          <h2 className="text-4xl md:text-5xl tracking-tight max-w-2xl">Where most bulk orders land.</h2>
+          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {picks.map((p, i) => (
+              <AnimatedContent key={p.slug} delay={i * 0.06}>
+                <Link to="/collection" className="group block">
+                  <div className="card overflow-hidden aspect-[4/5] mb-4">
+                    <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
                   </div>
-                  <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                    <input type="email" name="email" required placeholder="Email" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
-                    <ValidationError prefix="Email" field="email" errors={state.errors} />
-                  </div>
-                </div>
-                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                  <input type="tel" name="phone" placeholder="Phone / WhatsApp Number" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
-                </div>
-                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                  <input type="text" name="company" placeholder="Company / Event Name" className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light" />
-                </div>
-                <div className="relative border-b border-white/20 focus-within:border-brand-gold transition-colors duration-300">
-                  <textarea name="details" required placeholder="Tell us about your requirements" rows={3} className="w-full bg-transparent px-0 py-3 focus:outline-none text-white placeholder-white/30 font-light resize-none"></textarea>
-                  <ValidationError prefix="Details" field="details" errors={state.errors} />
-                </div>
-                <button
-                  type="submit"
-                  disabled={state.submitting}
-                  className="btn-primary w-full py-5 text-sm uppercase tracking-widest mt-4 disabled:opacity-50"
-                >
-                  {state.submitting ? 'Sending...' : 'Send Inquiry'}
-                </button>
-              </form>
-            )}
-          </div>
-          <div className="hidden md:block w-[40%] bg-brand-surface relative border-l border-white/5">
-            <img
-              src="/images/1.png"
-              alt="Artisanal Detail"
-              className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/80 to-transparent"></div>
+                  <h3 className="text-xl md:text-2xl leading-tight">{p.name}</h3>
+                  <p className="text-paper/60 text-sm mt-1">{p.price ? `from ${npr(p.price)} a piece` : 'Price on request'}</p>
+                </Link>
+              </AnimatedContent>
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* Quote form */}
+      <section id="quote" className="wrap section scroll-mt-20">
+        <SpotlightCard className="bg-paper-2">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            <div className="lg:col-span-7 p-8 md:p-14">
+              <h2 className="text-4xl md:text-5xl tracking-tight">Tell us the date and the count.</h2>
+              <p className="mt-4 text-mute leading-relaxed max-w-lg">We send a priced proposal within 24 hours, with samples available for pickup in Imadol.</p>
+
+              {state.succeeded ? (
+                <div className="mt-10 card bg-paper p-8">
+                  <h3 className="text-2xl mb-2">Request sent</h3>
+                  <p className="text-mute">Thank you. Expect a proposal within a day.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="c-name" className={labelCls}>Name</label>
+                      <input id="c-name" type="text" name="name" required className={fieldCls} autoComplete="name" />
+                      <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red text-xs mt-1" />
+                    </div>
+                    <div>
+                      <label htmlFor="c-email" className={labelCls}>Email</label>
+                      <input id="c-email" type="email" name="email" required className={fieldCls} autoComplete="email" />
+                      <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red text-xs mt-1" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="c-phone" className={labelCls}>Phone or WhatsApp</label>
+                      <input id="c-phone" type="tel" name="phone" className={fieldCls} autoComplete="tel" />
+                    </div>
+                    <div>
+                      <label htmlFor="c-company" className={labelCls}>Company or event</label>
+                      <input id="c-company" type="text" name="company" className={fieldCls} autoComplete="organization" />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="c-details" className={labelCls}>Requirements</label>
+                    <textarea id="c-details" name="details" required rows={4} placeholder="Pieces, products, date needed, delivery city" className={`${fieldCls} resize-none`} />
+                    <ValidationError prefix="Details" field="details" errors={state.errors} className="text-red text-xs mt-1" />
+                  </div>
+                  <button type="submit" disabled={state.submitting} className="btn-red disabled:opacity-60">
+                    {state.submitting ? 'Sending' : 'Send request'}
+                  </button>
+                </form>
+              )}
+            </div>
+            <div className="hidden lg:block lg:col-span-5 relative min-h-full">
+              <img src="/catalog/daisy-cards.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+          </div>
+        </SpotlightCard>
       </section>
     </div>
   );

@@ -1,301 +1,241 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowRight, Sparkles, Leaf, HeartHandshake, Globe, Heart, ChevronRight } from 'lucide-react';
-import { useForm, ValidationError } from '@formspree/react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
+import SplitText from '../components/bits/SplitText';
+import BlurText from '../components/bits/BlurText';
+import ScrollVelocity from '../components/bits/ScrollVelocity';
+import AnimatedContent from '../components/bits/AnimatedContent';
+import CountUp from '../components/bits/CountUp';
+import Magnet from '../components/bits/Magnet';
+import Masonry from '../components/bits/Masonry';
+import SpotlightCard from '../components/bits/SpotlightCard';
+import ProductCard from '../components/ProductCard';
+import { featured, FAMILIES, SCENTS, Family } from '../data/products';
 import { useShopModal } from '../context/ShopModalContext';
-import { Reveal, ParallaxImage, CursorArea } from '../components/ScrollFX';
+
+const FAMILY_IMAGES: Record<Family, string> = {
+  souvenir: '/catalog/shot-glass-stupa.jpg',
+  terracotta: '/catalog/matka-pair.jpg',
+  floral: '/catalog/peony-blue.jpg',
+  glass: '/catalog/glass-jar-lids.jpg',
+};
+
+// Only photos that do not already appear higher on the page.
+const GALLERY = [
+  { src: '/catalog/shot-glass-trio.jpg', alt: 'Three souvenir shot glass candles with Nepali prints' },
+  { src: '/catalog/glass-jar-lit.jpg', alt: 'Lit clear glass jar candle with Laligurash label' },
+  { src: '/catalog/floral-pots.jpg', alt: 'Floral terracotta pot candles' },
+  { src: '/catalog/peony-trio.jpg', alt: 'Peony candles in three colours' },
+  { src: '/catalog/lotus-saucer.jpg', alt: 'Lotus candle on a terracotta saucer' },
+  { src: '/catalog/daisy-cards.jpg', alt: 'Daisy candles on printed cards' },
+];
 
 export default function Home() {
-  const [state, handleSubmit] = useForm("mreyzkkk");
   const { openShop } = useShopModal();
-
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroVideoY = useTransform(heroProgress, [0, 1], [0, 160]);
-  const heroNumeralY = useTransform(heroProgress, [0, 1], [0, -220]);
-  const heroContentOpacity = useTransform(heroProgress, [0, 0.7], [1, 0]);
-
-  const scrollToCollections = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+  const reduce = useReducedMotion();
+  const picks = featured();
 
   return (
-    <div className="overflow-hidden bg-brand-ink selection:bg-brand-gold/20 selection:text-brand-gold">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-        <motion.div style={{ y: heroVideoY }} className="absolute inset-0 z-0">
-          <video
-            src="/videos/hero_bg.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-30 scale-110 mix-blend-screen"
+    <div className="overflow-x-clip">
+      {/* Hero: asymmetric split, copy left, photography right */}
+      <section className="wrap min-h-[calc(100dvh-72px)] grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-10 pb-16 lg:py-12">
+        <div className="lg:col-span-6 xl:col-span-5">
+          <SplitText
+            text="Handcrafted light from Nepal."
+            as="h1"
+            className="text-5xl sm:text-6xl lg:text-7xl leading-[1.05] pb-2 tracking-tight"
+            delay={0.06}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-ink/80 via-brand-ink/40 to-brand-ink" />
-          <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-brand-ink to-transparent" />
-        </motion.div>
-
-        {/* Oversized ghost numeral, editorial signature mark */}
-        <motion.span
-          style={{ y: heroNumeralY }}
-          className="pointer-events-none select-none absolute top-16 right-0 sm:right-6 text-[9rem] sm:text-[14rem] lg:text-[20rem] font-serif text-white/[0.04] leading-none"
-        >
-          01
-        </motion.span>
-
-        <motion.div style={{ opacity: heroContentOpacity }} className="relative z-10 px-6 md:px-12 lg:px-24 pb-20 md:pb-28 pt-40">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="max-w-6xl"
+            transition={{ delay: 0.5, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 text-lg text-mute max-w-md leading-relaxed"
           >
-            <div className="flex items-center gap-4 mb-8">
-              <span className="w-16 h-[1px] bg-brand-gold" />
-              <span className="text-xs uppercase tracking-[0.4em] font-medium text-brand-gold">
-                Handcrafted in Nepal
-              </span>
-            </div>
-            <h1 className="text-6xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-serif font-light mb-10 leading-[0.85] text-white -ml-1">
-              <span className="block text-brand-cream text-gradient">Illuminating</span>
-              <span className="italic font-light">Heritage</span>
-            </h1>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 max-w-5xl">
-              <p className="text-lg md:text-xl text-white/60 max-w-md font-light leading-relaxed">
-                Premium terracotta diyos and floating flora, born from the heart of community craftsmanship and ancient Nepalese traditions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-                <a href="#collections" onClick={scrollToCollections} className="btn-primary" aria-label="Explore the Collection">
-                  Explore the Collection
-                </a>
-                <Link to="/about" className="group flex items-center gap-3 text-xs uppercase tracking-widest text-white/70 hover:text-brand-gold transition-colors duration-300">
-                  <span>Our Story</span>
-                  <span className="w-8 h-[1px] bg-white/30 group-hover:bg-brand-gold transition-colors duration-300"></span>
-                </Link>
-              </div>
-            </div>
+            Soy wax candles in terracotta, printed glass and sculpted wax. Poured by hand in Lalitpur, priced from NPR 45.
+          </motion.p>
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
+            <Magnet>
+              <Link to="/collection" className="btn-red">
+                Browse the collection <ArrowRight size={16} />
+              </Link>
+            </Magnet>
+            <Link to="/corporate" className="btn-line">Corporate gifting</Link>
           </motion.div>
-        </motion.div>
+        </div>
+
+        <div className="lg:col-span-6 xl:col-span-7 relative">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, scale: 0.96, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="card overflow-hidden aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] xl:aspect-[5/4] lg:ml-8"
+          >
+            <img
+              src="/catalog/cover-floral-bowls.jpg"
+              alt="Terracotta bowl candles topped with wax daisies and sunflowers"
+              className="w-full h-full object-cover"
+              fetchPriority="high"
+            />
+          </motion.div>
+          <motion.div
+            initial={reduce ? false : { opacity: 0, x: -30, rotate: -4 }}
+            animate={{ opacity: 1, x: 0, rotate: -3 }}
+            transition={{ delay: 0.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="hidden sm:block absolute -bottom-8 -left-2 lg:left-0 w-40 lg:w-52 card overflow-hidden shadow-[0_24px_60px_-20px_rgba(63,69,41,0.45)] border-4 border-paper"
+          >
+            <img src="/catalog/succulent-pots.jpg" alt="Succulent candle boxed as a gift" className="w-full h-full object-cover aspect-[4/5]" />
+          </motion.div>
+        </div>
       </section>
 
-      {/* Marquee strip */}
-      <div className="relative z-20 border-y border-white/5 bg-brand-ink py-5 overflow-hidden">
-        <div className="marquee-track">
-          {Array.from({ length: 2 }).map((_, i) => (
-            <div key={i} className="flex items-center shrink-0" aria-hidden={i === 1}>
-              {['Handcrafted in Nepal', 'Artisan-Led', 'Small Batch', 'Women-Owned Community'].map((label) => (
-                <span key={label} className="flex items-center text-xs uppercase tracking-[0.3em] text-white/40 px-8">
-                  {label}
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/50 ml-8" />
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Velocity marquee: the only marquee on the page */}
+      <ScrollVelocity
+        items={['Hand-poured soy wax', 'Rose', 'Lemongrass', 'Sandalwood', 'Lavender', 'Terracotta from valley kilns', 'Made in Lalitpur']}
+        className="border-y border-ink/10 py-4 font-display text-2xl md:text-3xl"
+      />
 
-      {/* Value Proposition */}
-      <section className="section-padding bg-brand-ink relative z-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Reveal delay={0} from="left">
-              <div className="glass-panel p-7 md:p-14 text-center group h-full">
-                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
-                  <Sparkles className="text-brand-gold w-6 h-6" />
-                </div>
-                <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Artisan-Led</h3>
-                <p className="text-white/50 leading-relaxed font-light text-sm">
-                  Every piece is hand-poured by our women community, ensuring unique character in every flame.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.15} from="up" className="md:-translate-y-8">
-              <div className="glass-panel p-7 md:p-14 text-center group h-full">
-                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
-                  <Globe className="text-brand-gold w-6 h-6" />
-                </div>
-                <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Culturally Rooted</h3>
-                <p className="text-white/50 leading-relaxed font-light text-sm">
-                  We blend traditional Nepalese terracotta with modern wax artistry to create a timeless aesthetic for the contemporary home.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.3} from="right">
-              <div className="glass-panel p-7 md:p-14 text-center group h-full">
-                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 bg-brand-ink group-hover:border-brand-gold/50 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] transition-all duration-500">
-                  <Heart className="text-brand-gold w-6 h-6" />
-                </div>
-                <h3 className="text-2xl mb-4 text-brand-cream font-medium tracking-wide">Sustainable Impact</h3>
-                <p className="text-white/50 leading-relaxed font-light text-sm">
-                  Your purchase directly supports our women community and local micro-enterprise growth.
-                </p>
-              </div>
-            </Reveal>
+      {/* Featured products: horizontal snap row on mobile, 4-up on desktop */}
+      <section className="section">
+        <div className="wrap">
+          <BlurText text="What people take home." as="h2" className="text-4xl md:text-5xl lg:text-6xl tracking-tight max-w-2xl" />
+          <div className="mt-12 flex gap-5 overflow-x-auto snap-x snap-mandatory no-bar -mx-5 px-5 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible">
+            {picks.map((p, i) => (
+              <AnimatedContent key={p.slug} delay={i * 0.08} className="snap-start shrink-0 w-[78vw] sm:w-[46vw] lg:w-auto">
+                <ProductCard product={p} />
+              </AnimatedContent>
+            ))}
+          </div>
+          <div className="mt-10">
+            <Link to="/collection" className="inline-flex items-center gap-2 font-semibold text-ink hover:text-red transition-colors">
+              See all eleven pieces <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Collections */}
-      <section id="collections" className="section-padding bg-brand-surface relative rounded-t-[3rem] border-t border-white/5 mt-12 scroll-mt-24 overflow-hidden">
-        <span className="pointer-events-none select-none absolute -top-4 right-6 md:right-16 text-[10rem] md:text-[16rem] font-serif text-white/[0.03] leading-none">
-          02
-        </span>
-        <div className="max-w-7xl mx-auto relative">
-          <Reveal delay={0} from="up" distance={60}>
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-              <div className="max-w-xl">
-                <span className="text-xs uppercase tracking-[0.3em] text-brand-gold font-medium block mb-4">The Collections</span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl text-brand-cream leading-tight">Curated for Ambience</h2>
-              </div>
-              <button onClick={() => openShop()} className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50 hover:text-brand-gold transition-colors duration-300">
-                <span className="w-12 h-[1px] bg-white/20 group-hover:bg-brand-gold transition-colors duration-300"></span>
-                <span>View All</span>
-              </button>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {/* Item 1 - Top Left Large */}
-            <Reveal delay={0} from="left" className="md:col-span-8">
-              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
-                <CursorArea label="View" className="aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
-                  <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                  <ParallaxImage src="/images/4.png" alt="Signature Petal Diyos" className="grayscale-[55%] contrast-110 brightness-90" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
-                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">01</span>
-                  {/* Burn time badge */}
-                  <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
-                    <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 3+ Hours Burn</span>
-                  </div>
-                  <div className="absolute bottom-8 left-8 z-20">
-                    <h3 className="text-3xl text-brand-cream mb-2">Signature Petal Diyos</h3>
-                    <button onClick={() => openShop('Signature Petal Diyos')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                  </div>
-                </CursorArea>
-              </motion.div>
-            </Reveal>
-
-            {/* Item 2 - Top Right Small */}
-            <Reveal delay={0.1} from="right" className="md:col-span-4">
-              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer h-full">
-                <CursorArea label="View" className="h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
-                  <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
-                  <ParallaxImage src="/images/cg.png" alt="Corporate Gifting" className="grayscale-[55%] contrast-110 brightness-90" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
-                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">02</span>
-                  <div className="absolute bottom-8 left-8 z-20">
-                    <h3 className="text-2xl text-brand-cream mb-2">Corporate Gifting</h3>
-                    <button onClick={() => openShop('Corporate Gifting')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                  </div>
-                </CursorArea>
-              </motion.div>
-            </Reveal>
-
-            {/* Item 3 - Bottom Left Small */}
-            <Reveal delay={0} from="left" className="md:col-span-4">
-              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer h-full">
-                <CursorArea label="View" className="h-full min-h-[300px] overflow-hidden rounded-2xl bg-brand-ink">
-                  <div className="absolute inset-0 bg-brand-ink/30 group-hover:bg-brand-ink/10 transition-colors duration-500 z-10" />
-                  <ParallaxImage src="/images/2.png" alt="Floating Flora" className="grayscale-[55%] contrast-110 brightness-90" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-transparent to-transparent z-10 opacity-90" />
-                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">03</span>
-                  {/* Burn time badge */}
-                  <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
-                    <span className="text-brand-gold text-sm font-serif tracking-wide">🌸 1+ Hour Burn</span>
-                  </div>
-                  <div className="absolute bottom-8 left-8 z-20 pr-6">
-                    <h3 className="text-2xl text-brand-cream mb-2">Floating Flora</h3>
-                    <button onClick={() => openShop('Floating Flora')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                  </div>
-                </CursorArea>
-              </motion.div>
-            </Reveal>
-
-            {/* Item 4 - Bottom Right Large */}
-            <Reveal delay={0.1} from="right" className="md:col-span-8">
-              <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
-                <CursorArea label="View" className="aspect-[16/10] overflow-hidden rounded-2xl bg-brand-ink">
-                  <div className="absolute inset-0 bg-brand-ink/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                  <ParallaxImage src="/images/fb.png" alt="Festive Bundles" className="grayscale-[55%] contrast-110 brightness-90" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-terracotta/25 via-transparent to-brand-gold/20 mix-blend-color z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-transparent z-10 opacity-90" />
-                  <span className="absolute top-5 left-5 z-20 font-serif text-sm text-white/40 tracking-widest">04</span>
-                  {/* Burn time badge */}
-                  <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-brand-ink/70 backdrop-blur-md border border-brand-gold/40 rounded-full px-5 py-2.5">
-                    <span className="text-brand-gold text-sm font-serif tracking-wide">🕯️ 4+ Hours Burn</span>
-                  </div>
-                  <div className="absolute bottom-8 left-8 z-20">
-                    <h3 className="text-3xl text-brand-cream mb-2">Festive Bundles</h3>
-                    <button onClick={() => openShop('Festive Bundles')} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-brand-gold font-medium hover:text-white transition-colors">Explore <ChevronRight size={14} /></button>
-                  </div>
-                </CursorArea>
-              </motion.div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter / CTA */}
-      <section className="relative py-32 px-6 overflow-hidden bg-brand-ink border-t border-white/5">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-gold/10 via-brand-ink to-brand-ink opacity-60"></div>
-        <div className="absolute inset-0 bg-[url('/images/5.png')] opacity-[0.03] mix-blend-screen bg-cover bg-center"></div>
-
-        <Reveal className="max-w-3xl mx-auto text-center relative z-10">
-          <Sparkles className="w-8 h-8 text-brand-gold mx-auto mb-8 opacity-50" />
-          <h2 className="text-4xl md:text-5xl lg:text-7xl mb-8 font-serif leading-tight text-white">
-            Bring the warmth of <br className="hidden md:block" /> Laliguras home.
-          </h2>
-          <p className="text-white/50 text-lg mb-14 font-light max-w-xl mx-auto leading-relaxed">
-            Join our inner circle for exclusive access to seasonal collections, artisan stories, and festive gifting inspiration.
-          </p>
-          {state.succeeded ? (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-8 p-6 glass-panel border-brand-gold/30 flex items-center justify-center max-w-md mx-auto"
-            >
-              <p className="text-brand-gold text-lg font-serif">Thank you for subscribing to our story.</p>
-            </motion.div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-0 sm:gap-4 max-w-md mx-auto items-end"
-            >
-              <div className="flex-1 w-full border-b border-white/20 pb-2 transition-all duration-300 focus-within:border-brand-gold relative group">
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Enter your email"
-                  className="w-full bg-transparent text-white px-2 py-3 focus:outline-none placeholder-white/30 text-center sm:text-left font-light tracking-wide text-sm"
-                />
-                <ValidationError prefix="Email" field="email" errors={state.errors} />
-              </div>
-              <button
-                type="submit"
-                disabled={state.submitting}
-                className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-gold hover:text-white transition-colors duration-300 mt-6 sm:mt-0 py-3 px-4 flex-shrink-0 disabled:opacity-50"
+      {/* Four families: bento with 4 cells for 4 families */}
+      <section className="wrap pb-20 md:pb-28">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+          {(Object.keys(FAMILIES) as Family[]).map((key, i) => {
+            const wide = i === 0 || i === 3;
+            return (
+              <AnimatedContent
+                key={key}
+                from={i % 2 ? 'right' : 'left'}
+                className={`${wide ? 'md:col-span-7' : 'md:col-span-5'}`}
               >
-                {state.submitting ? 'Sending...' : 'Subscribe'}
-              </button>
-            </form>
-          )}
-        </Reveal>
+                <Link
+                  to={`/collection#${key}`}
+                  className="group relative block card overflow-hidden aspect-[4/3] md:aspect-auto md:h-[420px]"
+                >
+                  <img
+                    src={FAMILY_IMAGES[key]}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-olive-ink/85 via-olive-ink/20 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-paper">
+                    <h3 className="text-3xl md:text-4xl mb-2">{FAMILIES[key].label}</h3>
+                    <p className="text-paper/80 max-w-md text-sm md:text-base">{FAMILIES[key].blurb}</p>
+                  </div>
+                </Link>
+              </AnimatedContent>
+            );
+          })}
+        </div>
       </section>
 
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes slowZoom {
-          0% { transform: scale(1); }
-          100% { transform: scale(1.1); }
-        }
-      `}} />
+      {/* Scents and facts: the one olive colour block on the page */}
+      <section className="bg-olive-deep text-paper section">
+        <div className="wrap grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+          <div className="lg:col-span-5">
+            <h2 className="text-4xl md:text-5xl tracking-tight mb-6">Four scents. One wax.</h2>
+            <p className="text-paper/75 leading-relaxed max-w-md">
+              Every piece is poured with the same soy wax and one of four fragrance oils. Pick the scent when you order, or mix a set.
+            </p>
+            <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
+              <div>
+                <CountUp to={4} className="font-display text-5xl md:text-6xl block" />
+                <span className="text-sm text-paper/60">scents</span>
+              </div>
+              <div>
+                <CountUp to={50} suffix="g" className="font-display text-5xl md:text-6xl block" />
+                <span className="text-sm text-paper/60">soy wax per glass</span>
+              </div>
+              <div>
+                <CountUp to={4} suffix="h+" className="font-display text-5xl md:text-6xl block" />
+                <span className="text-sm text-paper/60">burn time</span>
+              </div>
+            </div>
+          </div>
+          <ul className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {SCENTS.map((s, i) => (
+              <AnimatedContent key={s.name} delay={i * 0.08}>
+                <li className="card bg-olive-ink/40 border border-paper/10 p-6 flex items-center gap-5 h-full">
+                  <span className="w-14 h-14 rounded-full shrink-0 shadow-[inset_0_2px_6px_rgba(0,0,0,0.25)]" style={{ background: s.color }} aria-hidden />
+                  <div>
+                    <h3 className="text-2xl">{s.name}</h3>
+                    <p className="text-paper/65 text-sm">{s.note}</p>
+                  </div>
+                </li>
+              </AnimatedContent>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Story: vertical stack, image full-bleed below */}
+      <section className="section">
+        <div className="wrap">
+          <div className="max-w-3xl">
+            <BlurText
+              text="Made at kitchen tables by women who set their own hours."
+              as="h2"
+              className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.08]"
+              delay={0.04}
+            />
+            <p className="mt-8 text-lg text-mute leading-relaxed max-w-2xl">
+              Laligurash is the Nepali name for the rhododendron, the national flower. The candles are made by home-based women artisans in
+              Lalitpur. Terracotta comes from valley potters, wax flowers are molded one petal at a time, and every glass is labelled by hand.
+            </p>
+            <Link to="/about" className="mt-8 inline-flex items-center gap-2 font-semibold hover:text-red transition-colors">
+              Read our story <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+        {/* Gallery doubles as the story's imagery */}
+        <div className="wrap mt-14">
+          <Masonry items={GALLERY} />
+        </div>
+      </section>
+
+      {/* Gifting CTA */}
+      <section className="wrap pb-24 md:pb-32">
+        <SpotlightCard className="bg-paper-2 p-8 md:p-14 lg:p-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-7">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.08]">
+                Tihar sets, wedding koseli, office hampers.
+              </h2>
+              <p className="mt-6 text-mute text-lg max-w-xl leading-relaxed">
+                Bulk pricing from 50 pieces, your logo on the label, and delivery across the valley. Tell us the date and the count.
+              </p>
+            </div>
+            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4 lg:items-end">
+              <button onClick={() => openShop('Corporate Gifting')} className="btn-red">Request a quote</button>
+              <Link to="/corporate" className="btn-line">Corporate gifting</Link>
+            </div>
+          </div>
+        </SpotlightCard>
+      </section>
     </div>
   );
 }
