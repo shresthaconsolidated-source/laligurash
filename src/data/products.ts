@@ -136,7 +136,7 @@ export const PRODUCTS: Product[] = [
     tagline: 'Tihar, by the dozen',
     description: 'A clay diyo filled with scented soy wax and a wax flower. Ordered in sets for Tihar, Dashain and housewarmings.',
     price: 45,
-    image: '/images/4.png',
+    image: '/catalog/floral-diyo.jpg',
     scented: true,
     burn: '1+ hour',
   },

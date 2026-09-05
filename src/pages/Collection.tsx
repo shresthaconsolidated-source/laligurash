@@ -50,7 +50,7 @@ export default function Collection() {
                     transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                   />
                 )}
-                <span className={`relative z-10 ${active ? 'text-paper' : 'text-ink/70 hover:text-ink'}`}>{f.label}</span>
+                <span className={`relative z-10 ${active ? 'text-wax' : 'text-ink/70 hover:text-ink'}`}>{f.label}</span>
               </button>
             );
           })}
@@ -79,7 +79,7 @@ export default function Collection() {
       </section>
 
       <section className="wrap pb-24 md:pb-32">
-        <div className="card bg-paper-2 p-8 md:p-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div className="card bg-wax-2 p-8 md:p-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div className="md:col-span-6">
             <h2 className="text-3xl md:text-4xl tracking-tight">Every piece, any of four scents.</h2>
             <p className="mt-4 text-mute leading-relaxed">
@@ -88,7 +88,7 @@ export default function Collection() {
           </div>
           <ul className="md:col-span-6 grid grid-cols-2 gap-3">
             {SCENTS.map((s) => (
-              <li key={s.name} className="flex items-center gap-3 rounded-full bg-paper px-4 py-3">
+              <li key={s.name} className="flex items-center gap-3 rounded-full bg-wax px-4 py-3">
                 <span className="w-5 h-5 rounded-full shrink-0" style={{ background: s.color }} aria-hidden />
                 <span className="font-semibold text-sm">{s.name}</span>
               </li>

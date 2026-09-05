@@ -37,7 +37,7 @@ export default function About() {
           </p>
         </div>
         <AnimatedContent from="right" className="lg:col-span-5 card overflow-hidden aspect-[4/5] lg:aspect-[3/4]">
-          <video src="/videos/candle_story.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+          <img src="/catalog/shot-glass-trio.jpg" alt="Three souvenir shot glass candles with Nepali prints" className="w-full h-full object-cover" />
         </AnimatedContent>
       </section>
 
@@ -57,7 +57,7 @@ export default function About() {
       </section>
 
       {/* How it is made: numbered vertical list with real content as labels */}
-      <section className="bg-paper-2 section">
+      <section className="bg-wax-2 section">
         <div className="wrap grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
             <BlurText text="How a candle gets made." as="h2" className="text-4xl md:text-5xl tracking-tight" />
@@ -69,7 +69,7 @@ export default function About() {
             {STEPS.map((s, i) => (
               <AnimatedContent key={s.title} delay={i * 0.08}>
                 <li>
-                  <span className="font-display text-5xl text-red block mb-3">{i + 1}</span>
+                  <span className="font-display text-5xl text-terracotta-deep block mb-3">{i + 1}</span>
                   <h3 className="text-2xl mb-2">{s.title}</h3>
                   <p className="text-mute leading-relaxed">{s.body}</p>
                 </li>
@@ -90,8 +90,8 @@ export default function About() {
               We are in Imadol, Lalitpur. Visitors, shops and event planners are welcome to see samples before ordering.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <button onClick={() => openShop()} className="btn-red">Request a quote</button>
-              <Link to="/collection" className="inline-flex items-center gap-2 font-semibold px-2 hover:text-red transition-colors">
+              <button onClick={() => openShop()} className="btn-terra">Request a quote</button>
+              <Link to="/collection" className="inline-flex items-center gap-2 font-semibold px-2 hover:text-terracotta-deep transition-colors">
                 Browse the collection <ArrowRight size={16} />
               </Link>
             </div>

@@ -7,7 +7,7 @@ import { useShopModal } from '../context/ShopModalContext';
 export default function ProductCard({ product, tilt = true }: { product: Product; tilt?: boolean }) {
   const { openShop } = useShopModal();
   const inner = (
-    <article className="card overflow-hidden bg-paper-2 h-full flex flex-col group">
+    <article className="card overflow-hidden bg-wax-2 h-full flex flex-col group">
       <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={product.image}
@@ -37,7 +37,7 @@ export default function ProductCard({ product, tilt = true }: { product: Product
           </div>
           <button
             onClick={() => openShop(product.name)}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-red hover:text-red-deep transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta-deep hover:text-terracotta transition-colors"
           >
             Request a quote <ArrowUpRight size={16} strokeWidth={2} />
           </button>
