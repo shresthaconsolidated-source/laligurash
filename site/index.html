@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laligurash — handcrafted candles from Nepal</title>
+<meta name="description" content="Soy wax poured into terracotta, printed glass and sculpted petals, by women artisans in Lalitpur. From forty-five rupees.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<!-- grain + cursor + progress -->
+<div class="grain"></div>
+<div class="cursor" id="cursor"><span class="cursor__label"></span></div>
+<div class="progress" id="progress"></div>
+
+<!-- loader -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <span class="loader__name">Laligurash</span>
+    <span class="loader__count" id="count">0</span>
+  </div>
+  <div class="loader__bar"><i id="loadbar"></i></div>
+</div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" data-cursor="home">Laligurash</a>
+  <nav class="nav__links">
+        <a href="#work" data-cursor="go">Collection</a>
+    <a href="#about" data-cursor="go">Our story</a>
+    <a href="#contact" data-cursor="go">Corporate</a>
+  </nav>
+  <a class="btn btn--sm magnetic" href="#contact" data-cursor="let's talk">See the collection</a>
+</header>
+
+<main id="top">
+
+  <!-- ─────────── hero ─────────── -->
+  <section class="hero">
+    <canvas class="hero__gl" id="gl"></canvas>
+    <div class="hero__inner">
+      <p class="eyebrow reveal-up">Hand-poured soy candles · Lalitpur, Nepal</p>
+      <h1 class="hero__title split">A flower, a flame, a <em>livelihood</em>.</h1>
+      <div class="hero__foot">
+        <p class="hero__sub reveal-up">Soy wax poured into terracotta, printed glass and sculpted petals, by women artisans in Lalitpur. From forty-five rupees.</p>
+        <a class="btn magnetic" href="#work" data-cursor="scroll"><span>See the collection</span></a>
+      </div>
+    </div>
+    <div class="hero__scroll"><span></span>scroll</div>
+  </section>
+
+  <!-- ─────────── marquee ─────────── -->
+  <section class="marquee" id="marquee">
+    <div class="marquee__track" id="track">
+      <span>Hand-poured · Soy wax · Lalitpur ·</span><span>Hand-poured · Soy wax · Lalitpur ·</span><span>Hand-poured · Soy wax · Lalitpur ·</span><span>Hand-poured · Soy wax · Lalitpur ·</span>
+    </div>
+  </section>
+
+  <!-- ─────────── intro ─────────── -->
+  <section class="intro" id="about">
+    <p class="intro__label reveal-up">What we make</p>
+    <h2 class="intro__text split-lines">Every candle is poured, trimmed and finished by hand in a workshop in Lalitpur. No machine touches the wax. The women who make them are paid by the piece and by name.</h2>
+  </section>
+
+  <!-- ─────────── pinned horizontal work ─────────── -->
+  <section class="work" id="work">
+    <div class="work__pin">
+      <div class="work__head">
+        <h2 class="work__title">The collection</h2>
+        <span class="work__count"><b id="wnow">01</b> / <em id="wtot">03</em></span>
+      </div>
+      <div class="work__rail" id="rail">
+                <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">01</span>
+            <img src="img/shot-glass-om.jpg" alt="Souvenir Shot Glass">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Souvenir Shot Glass</h3>
+            <span class="card__meta">NPR 310 — Om, stupa, prayer flags</span>
+          </div>
+        </article>
+        <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">02</span>
+            <img src="img/matka-pair.jpg" alt="Terracotta Matka">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Terracotta Matka</h3>
+            <span class="card__meta">NPR 225 — valley kiln clay</span>
+          </div>
+        </article>
+        <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">03</span>
+            <img src="img/lotus-saucer.jpg" alt="Blooming Lotus">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Blooming Lotus</h3>
+            <span class="card__meta">NPR 180 — altar or bath</span>
+          </div>
+        </article>
+        <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">04</span>
+            <img src="img/floral-pots.jpg" alt="Floral Terracotta Pot">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Floral Terracotta Pot</h3>
+            <span class="card__meta">NPR 265 — a pot that blooms</span>
+          </div>
+        </article>
+        <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">05</span>
+            <img src="img/peony-blue.jpg" alt="Peony Bloom">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Peony Bloom</h3>
+            <span class="card__meta">On request — the showpiece</span>
+          </div>
+        </article>
+        <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">06</span>
+            <img src="img/floral-diyo.jpg" alt="Floral Diyo">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Floral Diyo</h3>
+            <span class="card__meta">NPR 45 — Tihar, by the dozen</span>
+          </div>
+        </article>
+        <article class="card" data-cursor="view">
+          <div class="card__media"><span class="card__no">07</span>
+            <img src="img/glass-jar-lit.jpg" alt="Glass Jar, Wooden Lid">
+          </div>
+          <div class="card__body">
+            <h3 class="card__name">Glass Jar, Wooden Lid</h3>
+            <span class="card__meta">NPR 190 — the everyday one</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── numbers ─────────── -->
+  <section class="stats">
+        <div class="stat"><b data-count="11">0</b><span>candles in the range</span></div>
+    <div class="stat"><b data-count="4">0</b><span>scents</span></div>
+    <div class="stat"><b data-count="45">0</b><span>rupees, the smallest</span></div>
+  </section>
+
+  <!-- ─────────── image parallax strip ─────────── -->
+  <section class="strip">
+    <div class="strip__media"><img data-parallax src="img/succulent-pots-dark.jpg" alt=""></div>
+    <div class="strip__text">
+      <h3 class="split-lines">Rose, lemongrass, sandalwood, lavender. Four scents, chosen because they smell like somewhere rather than like a shop.</h3>
+    </div>
+  </section>
+
+  <!-- ─────────── contact ─────────── -->
+  <section class="contact" id="contact">
+    <p class="eyebrow reveal-up">Corporate gifting and wholesale</p>
+    <a class="contact__mail split" href="mailto:hello@laligurash.com" data-cursor="write">hello@laligurash.com</a>
+    <div class="contact__row">
+            <a href="#" data-cursor="open" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" data-cursor="open" target="_blank" rel="noopener">Facebook</a>
+      <a href="#" data-cursor="open" target="_blank" rel="noopener">Wholesale</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>&copy; <span id="yr"></span> Laligurash</span>
+  <span>Lalitpur, Nepal</span>
+  <a href="#top" class="magnetic" data-cursor="up">back to top</a>
+</footer>
+
+<script src="vendor/lenis.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="js/hero-gl.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

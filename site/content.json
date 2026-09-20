@@ -1,0 +1,31 @@
+{
+  "kind": "studio",
+  "title": "Laligurash — handcrafted candles from Nepal",
+  "brand": "Laligurash",
+  "eyebrow": "Hand-poured soy candles · Lalitpur, Nepal",
+  "headline": "A flower, a flame, a <em>livelihood</em>.",
+  "tagline": "Soy wax poured into terracotta, printed glass and sculpted petals, by women artisans in Lalitpur. From forty-five rupees.",
+  "cta": "See the collection",
+  "marquee": "Hand-poured · Soy wax · Lalitpur ·",
+  "nav": [["Collection", "#work"], ["Our story", "#about"], ["Corporate", "#contact"]],
+  "section1_label": "What we make",
+  "section1_text": "Every candle is poured, trimmed and finished by hand in a workshop in Lalitpur. No machine touches the wax. The women who make them are paid by the piece and by name.",
+  "section2_label": "The collection",
+  "cards": [
+    {"name": "Souvenir Shot Glass", "meta": "NPR 310 — Om, stupa, prayer flags", "img": "img/shot-glass-om.jpg"},
+    {"name": "Terracotta Matka", "meta": "NPR 225 — valley kiln clay", "img": "img/matka-pair.jpg"},
+    {"name": "Blooming Lotus", "meta": "NPR 180 — altar or bath", "img": "img/lotus-saucer.jpg"},
+    {"name": "Floral Terracotta Pot", "meta": "NPR 265 — a pot that blooms", "img": "img/floral-pots.jpg"},
+    {"name": "Peony Bloom", "meta": "On request — the showpiece", "img": "img/peony-blue.jpg"},
+    {"name": "Floral Diyo", "meta": "NPR 45 — Tihar, by the dozen", "img": "img/floral-diyo.jpg"},
+    {"name": "Glass Jar, Wooden Lid", "meta": "NPR 190 — the everyday one", "img": "img/glass-jar-lit.jpg"}
+  ],
+  "stats": [["11", "candles in the range"], ["4", "scents"], ["45", "rupees, the smallest"]],
+  "section3_text": "Rose, lemongrass, sandalwood, lavender. Four scents, chosen because they smell like somewhere rather than like a shop.",
+  "strip_img": "img/succulent-pots-dark.jpg",
+  "section4_label": "Corporate gifting and wholesale",
+  "email": "hello@laligurash.com",
+  "socials": [["Instagram", "#"], ["Facebook", "#"], ["Wholesale", "#"]],
+  "place": "Lalitpur, Nepal",
+  "colors": {"bg": "#14100c", "fg": "#f4f2eb", "dim": "#a2957f", "accent": "#e8853a"}
+}

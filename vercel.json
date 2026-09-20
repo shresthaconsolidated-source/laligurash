@@ -1,8 +1,6 @@
 {
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/index.html"
-        }
-    ]
+  "installCommand": "echo no dependencies",
+  "buildCommand": "echo static site, nothing to build",
+  "outputDirectory": "site",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
