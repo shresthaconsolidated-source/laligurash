@@ -1,16 +1,210 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/images/logo-160.png" />
-    <meta name="description" content="Hand-poured soy candles in terracotta, printed souvenir glass and sculpted wax flowers. Made by women artisans in Lalitpur, Nepal. Priced from NPR 45." />
-    <meta name="theme-color" content="#F4F2EB" />
-    <title>Laligurash | Handcrafted candles from Nepal</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laligurash — handcrafted candles from Nepal</title>
+<meta name="description" content="Soy candles in terracotta, printed glass and sculpted wax. Four scents, one soy wax, four hours or more of flame.">
+<meta name="theme-color" content="#14100c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=6">
+</head>
+<body>
 
+<!-- The room. Everything else floats on top of it. -->
+<canvas id="world" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="scrim" aria-hidden="true"></div>
+
+<div class="loader" id="loader">
+  <div class="loader__row">
+    <span class="loader__word">Laligurash</span>
+    <span class="loader__count" id="count">0</span>
+  </div>
+  <div class="loader__bar"><i id="loadbar"></i></div>
+</div>
+
+<header class="nav">
+  <a class="nav__brand" href="#top">Laligurash</a>
+  <nav class="nav__links">
+    <a href="#story" data-cursor="go">Story</a>
+    <a href="#collection" data-cursor="go">Collection</a>
+    <a href="#scents" data-cursor="go">Scents</a>
+    <a href="#orders" data-cursor="go">Gifting</a>
+    <a href="#quote" data-cursor="go">Visit</a>
+  </nav>
+  <a class="btn btn--sm" href="https://wa.me/9779851312671">Order on WhatsApp</a>
+</header>
+
+<button class="sound" id="sound" type="button" aria-pressed="false" hidden>
+  <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>Sound off</b>
+</button>
+
+<div class="picker" id="picker" role="group" aria-label="Choose a scent" hidden>
+  <span class="picker__label">Scent</span>
+  <button type="button" data-scent="rose" aria-pressed="false" style="--c:#D98A8A"><i></i><b>Rose</b></button>
+  <button type="button" data-scent="lemongrass" aria-pressed="false" style="--c:#B9C26A"><i></i><b>Lemongrass</b></button>
+  <button type="button" data-scent="sandalwood" aria-pressed="false" style="--c:#C69A6B"><i></i><b>Sandalwood</b></button>
+  <button type="button" data-scent="lavender" aria-pressed="false" style="--c:#A392C2"><i></i><b>Lavender</b></button>
+</div>
+
+<main id="top">
+
+  <section class="act act--hero">
+    <div class="hero__inner">
+      <p class="eyebrow">Hand-poured soy candles · Imadol, Lalitpur</p>
+      <h1 class="hero__title">Poured in Lalitpur, by women who work from <em>home</em>.</h1>
+      <p class="hero__sub">Soy candles in terracotta, printed glass and sculpted wax. Four scents, one soy wax, four hours or more of flame.</p>
+    </div>
+    <div class="hero__scroll"><span></span> Scroll</div>
+    <p class="hero__light" id="lighthint" aria-hidden="true">Bring the match to a wick</p>
+  </section>
+
+  <section class="act act--intro" id="story">
+    <div class="intro__inner">
+      <p class="label">Named for the rhododendron</p>
+      <p class="intro__text">Laligurash is Nepal's national flower. The candles are made at kitchen tables in Imadol by women who set their own hours, in clay from valley potters, with petals shaped one at a time.</p>
+    </div>
+  </section>
+
+  <!-- Tall on purpose: this is the length of table the camera walks. -->
+  <section class="act act--collection" id="collection">
+    <div class="rail">
+      <div class="rail__head">
+        <span class="label">The collection</span>
+        <span class="rail__count"><b id="pnow">01</b> / <i id="ptot">07</i></span>
+      </div>
+      <div class="rail__card">
+        <h2 class="rail__name" id="pname">&nbsp;</h2>
+        <p class="rail__meta" id="pmeta">&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="act act--close" id="contact">
+    <div class="close__inner">
+      <p class="close__text">Your order pays the artisans directly and keeps the potter families who supply the clay in work. That is the whole model.</p>
+      <div class="stats">
+    <div class="stat"><b data-count="11">0</b><span>pieces</span></div>
+    <div class="stat"><b data-count="4">0</b><span>scents</span></div>
+    <div class="stat"><b data-count="45">0</b><span>rupees, the smallest</span></div>
+      </div>
+      <p class="label">Tell us the date and the count</p>
+      <a class="close__mail" href="https://wa.me/9779851312671">9851312671</a>
+      <div class="close__row">
+      <a href="https://instagram.com/laligurashclothing/" data-cursor="open" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://facebook.com/LaligurashClothing" data-cursor="open" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://wa.me/9779851312671" data-cursor="open" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <p class="close__place">Imadol, Lalitpur · <span id="yr"></span></p>
+    </div>
+  </section>
+
+  <!-- The room ends here. Below is a page you read, on a solid floor (24 Sep 2026: everything
+       the live site says that this one did not). site.js stops the camera at #more. -->
+  <div class="more" id="more">
+
+    <section class="block" id="scents">
+      <p class="label reveal">Four scents</p>
+      <h2 class="block__title words">One soy wax. Four ways to fill a room.</h2>
+      <div class="scents">
+        <article class="scent spot" data-scent="rose" role="button" tabindex="0" aria-pressed="false" style="--c:#D98A8A"><i></i><h3>Rose</h3><p>Soft, floral, familiar</p></article>
+        <article class="scent spot" data-scent="lemongrass" role="button" tabindex="0" aria-pressed="false" style="--c:#B9C26A"><i></i><h3>Lemongrass</h3><p>Bright, green, awake</p></article>
+        <article class="scent spot" data-scent="sandalwood" role="button" tabindex="0" aria-pressed="false" style="--c:#C69A6B"><i></i><h3>Sandalwood</h3><p>Warm, woody, temple-like</p></article>
+        <article class="scent spot" data-scent="lavender" role="button" tabindex="0" aria-pressed="false" style="--c:#A392C2"><i></i><h3>Lavender</h3><p>Calm, herbal, evening</p></article>
+      </div>
+      <p class="block__note reveal">Lavender and lemongrass cost a little more, under NPR 10 a piece.</p>
+    </section>
+
+    <section class="block block--split" id="making">
+      <figure class="tilt reveal"><img src="img/matka-pair-dark.jpg" alt="Two terracotta matka candles" loading="lazy"></figure>
+      <div>
+        <p class="label reveal">How a candle gets made</p>
+        <ol class="steps">
+          <li class="reveal"><b>1</b><h3>Clay from valley kilns</h3><p>Matkas, pots and saucers are bought directly from potter families around the Kathmandu valley, at their price.</p></li>
+          <li class="reveal"><b>2</b><h3>Wax poured at home</h3><p>Soy wax is melted, coloured and scented in small batches at artisans’ own homes, around their own days.</p></li>
+          <li class="reveal"><b>3</b><h3>Petals shaped by hand</h3><p>Daisies, lotus and peonies are molded petal by petal and set on the wax while it is still soft. No two match.</p></li>
+          <li class="reveal"><b>4</b><h3>Labelled and packed</h3><p>Each piece gets the rhododendron label, a wick trim and a box or card backing before it leaves Imadol.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div>
+      <span>Festival gifting</span><span>Weddings and koseli</span><span>Hotels, shops and spas</span><span>Your logo on the label</span><span>Delivery across the valley</span>
+      <span>Festival gifting</span><span>Weddings and koseli</span><span>Hotels, shops and spas</span><span>Your logo on the label</span><span>Delivery across the valley</span>
+    </div></div>
+
+    <section class="block" id="orders">
+      <p class="label reveal">Gifts that were made here</p>
+      <h2 class="block__title words">Orders for the day you have in mind.</h2>
+      <div class="orders">
+        <article class="order">
+          <figure class="plate reveal"><img src="img/floral-pots.jpg" alt="Floral terracotta pot candles" width="768" height="704" loading="lazy"></figure>
+          <div class="order__text reveal">
+            <span class="order__no">01</span>
+            <h3>Festival gifting</h3>
+            <p>Dashain and Tihar hampers for staff and clients. Diyos by the dozen, matkas by the box, your logo on the label.</p>
+            <ul><li>From 50 pieces</li><li>Custom label and box</li><li>Delivery across the valley</li></ul>
+          </div>
+        </article>
+        <article class="order">
+          <figure class="plate reveal"><img src="img/daisy-cards.jpg" alt="Six daisy candles packed on Laligurash cards in a gift box" width="1103" height="768" loading="lazy"></figure>
+          <div class="order__text reveal">
+            <span class="order__no">02</span>
+            <h3>Weddings and events</h3>
+            <p>Return gifts (koseli) and table candles. Succulent pots and daisy cards are the usual picks.</p>
+            <ul><li>Personalised tags</li><li>Colour matched to the decor</li><li>Fixed delivery date</li></ul>
+          </div>
+        </article>
+        <article class="order">
+          <figure class="plate reveal"><img src="img/shot-glass-trio.jpg" alt="Souvenir shot glass candles with Nepali prints" width="744" height="1101" loading="lazy"></figure>
+          <div class="order__text reveal">
+            <span class="order__no">03</span>
+            <h3>Hotels, shops and spas</h3>
+            <p>Souvenir glasses for the lobby shop, lotus candles for treatment rooms, monthly restock.</p>
+            <ul><li>Wholesale price list</li><li>Monthly supply</li><li>Display samples on request</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="block block--quote" id="quote">
+      <div>
+        <h2 class="block__title words">Come and see the work.</h2>
+        <p class="block__lede reveal">We are in Imadol, Lalitpur. Visitors, shops and event planners are welcome to see samples before ordering.</p>
+      </div>
+      <form class="quote spot reveal" id="quoteform">
+        <label>What for<select name="what">
+          <option>Festival gifting</option><option>Wedding or event</option><option>Hotel, shop or spa</option><option>Just for me</option>
+        </select></label>
+        <label>How many pieces<input name="count" type="number" min="1" placeholder="50"></label>
+        <label>Needed by<input name="date" type="date"></label>
+        <label>Your name<input name="name" type="text" placeholder="Name"></label>
+        <button class="btn btn--shine" type="submit">Request a quote on WhatsApp</button>
+      </form>
+    </section>
+
+    <footer class="foot">
+      <a class="nav__brand" href="#top">Laligurash</a>
+      <span>Imadol, Lalitpur · <a href="https://wa.me/9779851312671">9851312671</a></span>
+      <span><a href="https://instagram.com/laligurashclothing/" target="_blank" rel="noopener">Instagram</a> · <a href="https://facebook.com/LaligurashClothing" target="_blank" rel="noopener">Facebook</a></span>
+    </footer>
+  </div>
+
+</main>
+
+<noscript>
+  <div class="noscript">
+    <h1>Laligurash</h1>
+    <p>Soy candles in terracotta, printed glass and sculpted wax. Four scents, one soy wax, four hours or more of flame.</p>
+    <p><a href="https://wa.me/9779851312671">9851312671</a></p>
+  </div>
+</noscript>
+
+<script src="vendor/lenis.min.js"></script>
+<script type="module" src="js/site.js?v=10"></script>
+</body>
+</html>

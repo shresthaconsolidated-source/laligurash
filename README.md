@@ -1,20 +1,14 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Laligurash - the candle room
 
-# Run and deploy your AI Studio app
+A static site: no build step. Open `index.html` through any local web server
+(for example `python -m http.server 8811`) and visit http://127.0.0.1:8811/.
 
-This contains everything you need to run your app locally.
+- The room starts dark and the cursor is a lit match; touching a wick lights it.
+  A parked candle lights itself after a moment, so nobody is made to find the match.
+- Sound (off by default): the match strike and a candle catching, nothing in between.
+- Scent picker: Rose, Lemongrass, Sandalwood, Lavender tint the light and fill the air.
 
-View your app in AI Studio: https://ai.studio/apps/4fef0024-7d78-42e2-8e5e-bd734f6f7569
+URL options: `?lit` starts with every candle burning, `?scent=rose` preselects a scent,
+`?still&p=0.5` freezes one frame for screenshots.
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+This branch does not touch `main` or the live site.

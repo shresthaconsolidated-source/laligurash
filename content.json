@@ -1,0 +1,125 @@
+{
+ "kind": "plate",
+ "title": "Laligurash — handcrafted candles from Nepal",
+ "brand": "Laligurash",
+ "eyebrow": "Hand-poured soy candles · Imadol, Lalitpur",
+ "headline": "Poured in Lalitpur, by women who work from <em>home</em>.",
+ "tagline": "Soy candles in terracotta, printed glass and sculpted wax. Four scents, one soy wax, four hours or more of flame.",
+ "cta": "Order on WhatsApp",
+ "marquee": "Hand-poured · Soy wax · Imadol, Lalitpur ·",
+ "nav": [
+  [
+   "Story",
+   "#story"
+  ],
+  [
+   "Collection",
+   "#collection"
+  ],
+  [
+   "Order",
+   "#contact"
+  ]
+ ],
+ "section1_label": "Named for the rhododendron",
+ "section1_text": "Laligurash is Nepal's national flower. The candles are made at kitchen tables in Imadol by women who set their own hours, in clay from valley potters, with petals shaped one at a time.",
+ "section2_label": "The collection",
+ "cards": [
+  {
+   "name": "Souvenir Shot Glass",
+   "meta": "NPR 310 · Om, stupa, prayer flags, Buddha eyes",
+   "shape": "shotglass"
+  },
+  {
+   "name": "Terracotta Matka",
+   "meta": "NPR 225 · valley kiln clay · 5+ hours",
+   "shape": "matka"
+  },
+  {
+   "name": "Blooming Lotus",
+   "meta": "NPR 180 · for the altar or the bath",
+   "shape": "lotus"
+  },
+  {
+   "name": "Floral Terracotta Pot",
+   "meta": "NPR 265 · three sizes, to NPR 375",
+   "shape": "potfloral"
+  },
+  {
+   "name": "Succulent Pot",
+   "meta": "NPR 235 · boxed with a twine tag",
+   "shape": "succulent"
+  },
+  {
+   "name": "Peony Bloom",
+   "meta": "Made to order · in your colours",
+   "shape": "peony"
+  },
+  {
+   "name": "Floral Diyo",
+   "meta": "NPR 45 · ordered by the dozen for Tihar",
+   "shape": "diyo"
+  },
+  {
+   "name": "Clear Glass Jar",
+   "meta": "NPR 190 · a clean four-hour burn",
+   "shape": "clearjar"
+  },
+  {
+   "name": "Daisy Candle",
+   "meta": "NPR 75 · sold by the piece",
+   "shape": "daisy"
+  },
+  {
+   "name": "Frosted Souvenir Glass",
+   "meta": "NPR 375 · the flame through frost",
+   "shape": "frosted"
+  },
+  {
+   "name": "Glass Jar, Wooden Lid",
+   "meta": "On request · blooms sealed under glass",
+   "shape": "jarlid"
+  }
+ ],
+ "stats": [
+  [
+   "11",
+   "pieces"
+  ],
+  [
+   "4",
+   "scents"
+  ],
+  [
+   "45",
+   "rupees, the smallest"
+  ]
+ ],
+ "section3_text": "Your order pays the artisans directly and keeps the potter families who supply the clay in work. That is the whole model.",
+ "strip_img": "img/plate-bed.jpg",
+ "section4_label": "Tell us the date and the count",
+ "email": "",
+ "contact": "9851312671",
+ "contact_href": "https://wa.me/9779851312671",
+ "socials": [
+  [
+   "Instagram",
+   "https://instagram.com/laligurashclothing/"
+  ],
+  [
+   "Facebook",
+   "https://facebook.com/LaligurashClothing"
+  ],
+  [
+   "WhatsApp",
+   "https://wa.me/9779851312671"
+  ]
+ ],
+ "place": "Imadol, Lalitpur",
+ "colors": {
+  "bg": "#14100c",
+  "fg": "#f4f2eb",
+  "dim": "#a2957f",
+  "accent": "#e8853a"
+ }
+}
