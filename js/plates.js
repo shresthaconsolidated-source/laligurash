@@ -116,8 +116,8 @@ export async function createWorld(canvas, content, opts = {}) {
   const want = src => img[src] || (img[src] = Object.assign(new Image(),
     { decoding: 'async', src }));
   const plate = n => want(`img/plate-${n}.jpg`);
-  const lit = i => want(`img/cut-${cards[i].shape}.png?v=2`);
-  const cut = i => WICKS[cards[i].shape]?.unlit ? want(`img/unlit-${cards[i].shape}.png?v=3`) : lit(i);
+  const lit = i => want(`img/cut-${cards[i].shape}.webp?v=4`);
+  const cut = i => WICKS[cards[i].shape]?.unlit ? want(`img/unlit-${cards[i].shape}.webp?v=4`) : lit(i);
   const HERO = 'hero-unlit';
 
   /* One record per wick: `at` is the moment it caught, null while it is dark. */

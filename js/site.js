@@ -51,7 +51,7 @@ function fail(msg) {
 
   let world;
   try {
-    world = await (await import('./plates.js?v=6')).createWorld(canvas, content,
+    world = await (await import('./plates.js?v=7')).createWorld(canvas, content,
       { lit: STILL || reduced || q.has('lit'), wait: parseFloat(q.get('wait')) });
   } catch (e) { return fail('the room failed to start: ' + e.message); }
   if (!world) return fail('no drawing context');
